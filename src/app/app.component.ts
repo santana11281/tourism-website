@@ -4,7 +4,7 @@ import { AppContainerComponent } from "./components/app-container/app-container.
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppContainerComponent],
+  imports: [AppContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
