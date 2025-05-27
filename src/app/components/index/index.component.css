@@ -990,7 +990,7 @@ CTA Style
 }
 
 .cta::after {
-  background-image: url(../../../../assets/images/cta-bg.jpg);
+  background-image: url(../../../../assets/images/logo.png);
   max-width: 550px;
   max-height: 510px;
   width: 100%;
@@ -2665,7 +2665,7 @@ CTA Style
 }
 
 .cta::after {
-  background-image: url(../../../../assets/images/cta-bg.jpg);
+  background-image: url(../../../../assets/images/logo.png);
   max-width: 550px;
   max-height: 510px;
   width: 100%;
