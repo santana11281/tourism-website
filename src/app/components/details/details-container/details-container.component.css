@@ -651,7 +651,7 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../assets/images/banner-bg.jpg);
+  background-image: url(../../../../../assets/images/banner-bg.jpg);
   border-radius: 0px 0px 150px 150px;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -678,7 +678,7 @@ Banner Style
 
 .main-banner .caption h2:after {
   position: absolute;
-  background-image: url(/assets/images/caption-dec.png);
+  background-image: url(../../../../../assets/images/caption-dec.png);
   width: 202px;
   height: 12px;
   content: '';
@@ -1019,7 +1019,7 @@ CTA Style
 }
 
 .cta::after {
-  background-image: url(/assets/images/cta-bg.jpg);
+  background-image: url(../../../../../assets/images/blue-gradient-bg-1.jpg);
   max-width: 550px;
   max-height: 510px;
   width: 100%;
@@ -1116,7 +1116,7 @@ footer {
   background-color: #0071f8;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(/assets/images/footer-bg.jpg);
+  background-image: url(../../../../../assets/images/footer-bg.jpg);
   min-height: 150px;
   border-radius: 150px 150px 0px 0px;
 }
@@ -1148,7 +1148,7 @@ Page Header Style
 */
 
 .page-heading {
-  background-image: url(/assets/images/page-heading-bg.jpg);
+  background-image: url(../../../../../assets/images/page-heading-bg.jpg);
   border-radius: 0px 0px 150px 150px;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -1480,194 +1480,48 @@ Single Page Style
   margin-top: 32px;
 }
 
+.single-product {
+  display: flex;
+  justify-content: center;
 
-/*
----------------------------------------------
-Contact PAge Style
----------------------------------------------
-*/
-
-.contact-page .left-text {
-  background-color: #f7f7f7;
-  border-radius: 25px;
-  padding: 60px;
-}
-
-.contact-page .left-text .section-heading {
-  margin-bottom: 50px;
-}
-
-.contact-page .left-text p {
-  margin-bottom: 50px;
-}
-
-.contact-page .left-text ul li {
-  display: block;
-  font-size: 16px;
-  color: #aaaaaa;
-  font-size: 300;
-  margin-bottom: 30px;
-}
-
-.contact-page .left-text ul li:last-child {
-  margin-bottom: 0px;
-}
-
-.contact-page .left-text ul li span {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #4a4a4a;
-  margin-bottom: 5px;
-}
-
-.contact-page .right-content {
-  margin-left: 50px;
-}
-
-.contact-page .right-content #map {
-  margin-bottom: 60px;
-}
-
-.contact-page .right-content form input {
-  width: 100%;
-  height: 50px;
-  border-radius: 25px;
-  padding: 0px 20px;
-  background-color: #f7f7f7;
-  border: 1px solid #e7e7e7;
-  font-size: 14px;
-  color: #4a4a4a;
-  margin-bottom: 30px;
-}
-
-.contact-page .right-content form textarea {
-  width: 100%;
-  height: 130px;
-  border-radius: 25px;
-  padding: 20px 20px;
-  background-color: #f7f7f7;
-  border: 1px solid #e7e7e7;
-  font-size: 14px;
-  color: #4a4a4a;
-  margin-bottom: 30px;
-}
-
-.contact-page .right-content form button {
-  display: inline-block;
-  height: 50px;
-  line-height: 50px;
-  background-color: #ee626b;
-  color: #fff;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 0px 25px;
-  border: none;
-  border-radius: 25px;
-  transition: all .3s;
-}
-
-.contact-page .right-content form button:hover {
-  background-color: #0071f8;
-}
-
-/*
----------------------------------------------
-Responsive Style
----------------------------------------------
-*/
-
-body {
-  overflow-x: hidden;
 }
 
 @media (max-width: 767px) {
-  .header-area {
-    top: 0;
+  .single-product {
+    margin-left: 8px;
+    margin-right: 8px;
   }
-  .main-banner .right-image span.offer {
-    left: 20px;
-    bottom: 20px;
+
+}
+
+@media (max-width: 767px) {
+.tabs-content {
+    margin: 10px ;
   }
-  .cta .subscribe form button {
-    position: relative;
-    width: 100%;
-    margin-top: 15px;
+
+}
+
+.page-heading{
+  display: flex;
+  justify-content: center;
+  text-align: start;
+
+}
+
+/* on mobile add margin to the left */
+
+@media (max-width: 767px) {
+  .page-heading .container {
+    padding: 15px ;
   }
 }
 
-@media (max-width: 992px) {
-  .header-area .main-nav .logo img {
-    max-width: 110px;
-  }
-  .header-area .main-nav .nav li a {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .header-area .main-nav ul.nav {
-    margin-top: 0px;
-  }
-  .background-header .main-nav ul.nav {
-    margin-top: 20px;
-  }
-  .main-banner .caption {
-    margin-bottom: 45px;
-    text-align: center;
-  }
-  .main-banner .caption form,
-  .main-banner .caption form input {
-    max-width: 100%;
-  }
-  .features .item {
-    margin-bottom: 30px;
-  }
-  .trending .main-button,
-  .cta::after,
-  .most-played .main-button,
-  .related-games .main-button {
-    display: none;
-  }
-  .most-played .section-heading {
-    text-align: center;
-  }
-  .cta .shop {
-    padding: 30px;
-    margin-bottom: 30px;
-  }
-  .cta .subscribe {
-    padding: 30px;
-  }
-  .cta .shop .section-heading {
-    margin-right: 0px;
-  }
-  .trending ul.trending-filter li a {
-    font-size: 13px;
-    padding: 8px 10px;
-  }
-  .trending ul.trending-filter li {
-    margin: 5px 2px;
-  }
-  .single-product .left-image {
-    margin-right: 0px;
-    margin-bottom: 45px;
-  }
-  .tabs-content .nav-link {
-    font-size: 16px;
-  }
-  .tabs-content ul.nav-tabs li {
-    margin-right: 15px;
-    padding-right: 15px;
-  }
-  .page-heading {
-    padding: 140px 0px 100px 0px;
-  }
-  .contact-page .right-content {
-    margin-left: 0px;
-    margin-top: 45px;
-  }
+
+.box-shadow1 {
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-@media (max-width: 1200px) {
 
+.box-shadow2 {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
