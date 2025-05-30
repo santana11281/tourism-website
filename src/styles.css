@@ -1668,6 +1668,14 @@ body {
   }
 }
 
-@media (max-width: 1200px) {
 
+
+
+.box-shadow1 {
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.box-shadow2 {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
