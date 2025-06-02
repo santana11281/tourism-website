@@ -1,152 +1,145 @@
-
-
-
+<div class="home-container">
+  <!-- Hero Section -->
   <div class="main-banner">
-    <div class="container">
-      <div class="row">
+    <div class="container mt-5">
+      <div class="row mt-5 pt-5">
         <div class="col-lg-6 align-self-center">
           <div class="caption header-text">
             <h6>Turismo en la palma de tu mano</h6>
-            <h2>Mejor pagina de turismo</h2>
-            <p>Aqui podras encontrar todo lo que necesitas para encontrar tu proxima aventura en republica dominicana.
-            </p>
+            <h2>Mejor página de turismo</h2>
+            <p>Descubre los mejores destinos de República Dominicana y planifica tu próxima aventura.</p>
             <div class="search-input">
-              <form id="search" ubicacion="#">
-                <input type="text" placeholder="Buscar lugares" id='searchText' name="searchKeyword"
-                  onkeypress="handle" />
-                <button class="search-btn" role="button">
-                  <div class="search-btn-icon"></div>
+              <form id="search">
+                <input
+                  type="text"
+                  [(ngModel)]="searchQuery"
+                  name="searchQuery"
+                  placeholder="Buscar destinos..."
+                >
+                <button class="search-btn" type="submit">
+                  <i class="fa fa-search"></i>
                 </button>
               </form>
             </div>
           </div>
         </div>
         <div class="col-lg-4 offset-lg-2">
-          <div style="border: #ee626b solid 8px; border-radius: 35px;" class="right-image">
-            <img class="main-banner-image" src="https://iili.io/3m6GHoN.png" alt="error al cargar la imagen">
-
-            <span class="offer"> <img src="https://cdn-icons-png.flaticon.com/512/5086/5086786.png" alt="">
-            </span>
+          <div class="right-image">
+            <img class="main-banner-image" src="https://iili.io/3m6GHoN.png" alt="Turismo RD">
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="features">
-    <div class="container ">
+  <!-- Statistics Section -->
+  <section class="statistics-section">
+    <div class="container">
       <div class="row">
-        <div *ngFor="let category of categories" class="col-lg-4 col-md-6 p-2">
-          <div
-            class="item"
-            [class.selected]="isSelected(category.name)"
-            (click)="selectCategory(category)"
-            role="button"
-            tabindex="0">
-            <div class="image">
-              <img [src]="category.icon" [alt]="category.label" style="max-width: 44px;">
+        <div class="col-md-3 col-sm-6" *ngFor="let stat of statistics">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fa {{stat.icon}}"></i>
             </div>
-            <h4>{{category.label}}</h4>
+            <div class="stat-info">
+              <h3>{{stat.value}}</h3>
+              <p>{{stat.label}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-
-  <div class="container p-4 mt-5 ">
-    <div class="row box-shadow2">
-      <div class="col-lg-12 box-shadow1 rounded ">
-        <div class="container ">
-          <div>
-
-            <h3 class="places-header text-center mt-5 p-3">
-              {{getSelectedCategoryLabel()}}
-            </h3>
+  <!-- Featured Destinations -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Destinos Destacados</h2>
+        <p>Explora nuestros destinos más populares</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6" *ngFor="let destination of featuredDestinations">
+          <div class="featured-card">
+            <div class="card-image">
+              <img [src]="destination.image" [alt]="destination.name">
+              <div class="category-tag">{{destination.category}}</div>
+              <div class="rating">
+                <i class="fa fa-star filled" *ngFor="let star of getRatingStars(destination.rating)"></i>
+                <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(destination.rating)"></i>
+                <span>{{destination.rating}}</span>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>{{destination.name}}</h3>
+              <p>{{destination.description}}</p>
+              <a [routerLink]="['/details', destination.id]" class="explore-btn">
+                Explorar <i class="fa fa-arrow-right"></i>
+              </a>
+            </div>
           </div>
-
-
         </div>
-
       </div>
-
-      <div class="col-lg-12">
-
-        <!-- card 1 -->
-        <app-card-destination />
-        <app-card-destination />
-        <app-card-destination />
-        <app-card-destination />
-
-
-
-      </div>
-
-
     </div>
-  </div>
+  </section>
 
+  <!-- Activities Section -->
+  <section class="activities-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Actividades</h2>
+        <p>Descubre todo lo que puedes hacer</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6" *ngFor="let activity of activities">
+          <div class="activity-card">
+            <div class="activity-icon">
+              <i class="fa {{activity.icon}}"></i>
+            </div>
+            <h3>{{activity.title}}</h3>
+            <p>{{activity.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Latest Reviews Section -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lo que dicen nuestros viajeros</h2>
+        <p>Experiencias reales de visitantes</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6" *ngFor="let testimonial of testimonials">
+          <div class="testimonial-card">
+            <div class="user-info">
+              <img [src]="testimonial.image" [alt]="testimonial.name">
+              <div class="user-details">
+                <h4>{{testimonial.name}}</h4>
+                <p>{{testimonial.location}}</p>
+              </div>
+            </div>
+            <div class="rating">
+              <i class="fa fa-star filled" *ngFor="let star of getRatingStars(testimonial.rating)"></i>
+              <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(testimonial.rating)"></i>
+            </div>
+            <p class="testimonial-text">"{{testimonial.comment}}"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
-
-
-
-
-
-
-
-
-<style>
-  .main-banner {
-    margin: 10px;
-    border-radius: 10px;
-  }
-
-  .search-btn-icon {
-    background-image: url(../../../../../assets/icons/icons8-search-384.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
-  }
-
-  .search-btn:hover {
-    background-color: #7cb1f6 !important;
-    cursor: pointer;
-  }
-
-  .places-header {
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 20px;
-  }
-
-  .item {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 15px;
-    border-radius: 15px;
-    border: 2px solid transparent;
-  }
-
-  .item:hover {
-    transform: translateY(-5px);
-  }
-
-  .item.selected {
-    background: rgb(54 144 255 / 65%);
-    border-color: #0171f9;
-  }
-
-  .item.selected h4 {
-    color: #0171f9;
-  }
-
-  .item:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(1, 113, 249, 0.3);
-  }
-</style>
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>¿Listo para tu próxima aventura?</h2>
+        <p>Descubre los mejores destinos y experiencias en República Dominicana</p>
+        <a routerLink="/destinos" class="btn btn-primary">Explorar Destinos</a>
+      </div>
+    </div>
+  </section>
+</div>
