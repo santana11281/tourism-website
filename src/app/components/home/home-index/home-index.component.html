@@ -35,41 +35,20 @@
 
   <div class="features">
     <div class="container ">
-      <div class="row ">
-        <div class="col-lg-4 col-md-6 p-2">
-          <a href="#">
-            <div class="item">
-              <div class="image">
-                <img src="https://img.icons8.com/?size=100&id=52196&format=png&color=000000" alt=""
-                  style="max-width: 44px;">
-              </div>
-              <h4>Recientes</h4>
+      <div class="row">
+        <div *ngFor="let category of categories" class="col-lg-4 col-md-6 p-2">
+          <div
+            class="item"
+            [class.selected]="isSelected(category.name)"
+            (click)="selectCategory(category)"
+            role="button"
+            tabindex="0">
+            <div class="image">
+              <img [src]="category.icon" [alt]="category.label" style="max-width: 44px;">
             </div>
-          </a>
+            <h4>{{category.label}}</h4>
+          </div>
         </div>
-        <div class="col-lg-4 col-md-6 p-2">
-          <a href="#">
-            <div class="item">
-              <div class="image">
-                <img src="https://img.icons8.com/?size=100&id=la2S0ys9gplw&format=png&color=000000" alt=""
-                  style="max-width: 44px;">
-              </div>
-              <h4>Populares</h4>
-            </div>
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-6 ">
-          <a href="#">
-            <div class="item">
-              <div class="image">
-                <img src="https://img.icons8.com/?size=100&id=lhrKPeMFIFdF&format=png&color=000000" alt=""
-                  style="max-width: 44px;">
-              </div>
-              <h4>Tendencia</h4>
-            </div>
-          </a>
-        </div>
-
       </div>
     </div>
   </div>
@@ -81,7 +60,9 @@
         <div class="container ">
           <div>
 
-            <h3 class="places-header text-center mt-5 p-3 ">Recientes</h3>
+            <h3 class="places-header text-center mt-5 p-3">
+              {{getSelectedCategoryLabel()}}
+            </h3>
           </div>
 
 
@@ -122,33 +103,50 @@
     border-radius: 10px;
   }
 
-
   .search-btn-icon {
     background-image: url(../../../../../assets/icons/icons8-search-384.png);
     background-size: cover;
     background-repeat: no-repeat;
     width: 30px;
     height: 30px;
-
   }
 
   .search-btn:hover {
     background-color: #7cb1f6 !important;
     cursor: pointer;
-
-
   }
 
   .places-header {
-
     text-align: center;
     font-size: 30px;
     font-weight: 600;
     color: #333;
-
     margin-bottom: 20px;
+  }
 
+  .item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+  }
 
+  .item:hover {
+    transform: translateY(-5px);
+  }
 
+  .item.selected {
+    background: rgb(54 144 255 / 65%);
+    border-color: #0171f9;
+  }
+
+  .item.selected h4 {
+    color: #0171f9;
+  }
+
+  .item:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(1, 113, 249, 0.3);
   }
 </style>

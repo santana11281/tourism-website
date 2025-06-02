@@ -6,17 +6,17 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="index.html" class="logo">
+            <a [routerLink]="['/home']" class="logo">
               <img src="assets/images/logo.png" alt="" style="width: 158px;">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="index.html" class="active">Inicio</a></li>
-              <li><a href="shop.html">Destinos</a></li>
-              <li><a href="product-details.html">Experiencias</a></li>
-              <li><a href="contact.html">Contactanos</a></li>
-              <li><a href="#">Sobre nosotros</a></li>
+              <li><a [routerLink]="['/home']" routerLinkActive="active">Inicio</a></li>
+              <li><a [routerLink]="['/destinos']" routerLinkActive="active">Destinos</a></li>
+              <li><a [routerLink]="['/experiencias']" routerLinkActive="active">Experiencias</a></li>
+              <li><a [routerLink]="['/contacto']" routerLinkActive="active">Contáctanos</a></li>
+              <li><a [routerLink]="['/about']" routerLinkActive="active">Sobre Nosotros</a></li>
             </ul>
             <a class='menu-trigger' (click)="toggleMenu()">
               <span>Menu</span>

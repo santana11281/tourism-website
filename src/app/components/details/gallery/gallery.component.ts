@@ -14,7 +14,7 @@ export class GalleryComponent {
 
   images = [
     {
-      url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/f7/0e/punta-cana.jpg',
+      url: 'https://everythingpuntacana.com/wp-content/uploads/2024/08/bavaro-beach-view-850x567.webp',
       title: 'Playa Bávaro',
       category: 'Playas',
       description: 'Hermosa playa de arena blanca con aguas cristalinas'

@@ -1,0 +1,98 @@
+<div class="destinations-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="container mt-5">
+      <h1 class="pt-5">Destinos</h1>
+      <p class="lead">Explora los mejores destinos de República Dominicana</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Search and Filter Section -->
+    <div class="search-filter-section">
+      <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="Buscar destinos..."
+          class="form-control">
+      </div>
+
+      <div class="category-filters">
+        <button
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category"
+          (click)="selectedCategory = category"
+          class="category-btn">
+          {{category}}
+        </button>
+      </div>
+    </div>
+
+    <!-- Destinations Grid -->
+    <div class="row destinations-grid">
+      <div class="col-lg-6 col-xl-4" *ngFor="let destination of filteredDestinations()">
+        <div class="destination-card">
+          <div class="card-image">
+            <img [src]="destination.mainImage" [alt]="destination.name">
+            <div class="category-tag">{{destination.category}}</div>
+            <div class="rating">
+              <i class="fa fa-star filled" *ngFor="let star of getRatingStars(destination.rating)"></i>
+              <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(destination.rating)"></i>
+              <span class="rating-number">{{destination.rating}}</span>
+            </div>
+          </div>
+
+          <div class="card-content">
+            <h3>{{destination.name}}</h3>
+            <h4>{{destination.province}}</h4>
+            <p class="description">{{destination.description}}</p>
+
+            <!-- Info Sections -->
+            <div class="info-section">
+              <h5><i class="fa fa-calendar"></i> Mejor época</h5>
+              <p>{{destination.bestTime}}</p>
+            </div>
+
+            <div class="info-section">
+              <h5><i class="fa fa-sun"></i> Clima</h5>
+              <p>{{destination.weather}}</p>
+            </div>
+
+            <!-- Activities and Highlights -->
+            <div class="features-section">
+              <div class="activities">
+                <h5>Actividades</h5>
+                <ul>
+                  <li *ngFor="let activity of destination.activities">
+                    <i class="fa fa-check"></i> {{activity}}
+                  </li>
+                </ul>
+              </div>
+
+              <div class="highlights">
+                <h5>Destacados</h5>
+                <ul>
+                  <li *ngFor="let highlight of destination.highlights">
+                    <i class="fa fa-star"></i> {{highlight}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <a [routerLink]="['/details', destination.id]" class="btn btn-primary learn-more">
+              <i class="fa fa-info-circle"></i> Ver más detalles
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="filteredDestinations().length === 0">
+      <p>No se encontraron destinos que coincidan con tu búsqueda</p>
+    </div>
+  </div>
+</div>

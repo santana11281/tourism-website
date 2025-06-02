@@ -1,0 +1,78 @@
+<div class="about-us-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="container text-center mt-5">
+      <h1 class="pt-5">Sobre Nosotros</h1>
+      <p class="lead">Descubre quiénes somos y nuestra pasión por el turismo dominicano</p>
+    </div>
+  </div>
+
+  <!-- Mission & Vision Section -->
+  <div class="mission-vision-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mission-card">
+            <div class="card-icon">
+              <i class="fa fa-flag"></i>
+            </div>
+            <h2>Nuestra Misión</h2>
+            <p>{{mission}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="vision-card">
+            <div class="card-icon">
+              <i class="fa fa-eye"></i>
+            </div>
+            <h2>Nuestra Visión</h2>
+            <p>{{vision}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Values Section -->
+  <div class="values-section">
+    <div class="container">
+      <h2 class="section-title text-center">Nuestros Valores</h2>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let value of companyValues">
+          <div class="value-card">
+            <div class="value-icon">
+              <i class="fa {{value.icon}}"></i>
+            </div>
+            <h3>{{value.title}}</h3>
+            <p>{{value.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <div class="container">
+      <h2 class="section-title text-center">Nuestro Equipo</h2>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let member of teamMembers">
+          <div class="team-card">
+            <div class="member-image">
+              <img [src]="member.image" [alt]="member.name">
+            </div>
+            <div class="member-info">
+              <h3>{{member.name}}</h3>
+              <h4>{{member.role}}</h4>
+              <p>{{member.description}}</p>
+              <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

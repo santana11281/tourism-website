@@ -32,7 +32,7 @@
 
   .nav li a:hover,
   .nav li a.active {
-    color: #809fff;
+    color: #464646;
     background: rgba(128, 159, 255, 0.1);
   }
 
@@ -68,6 +68,7 @@
 
   .nav li a:hover,
   .nav li a.active {
-    color: #809fff;
+    color: #2c2c2c;
+    background: rgba(38, 88, 238, 0.493);
   }
 }

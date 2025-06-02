@@ -1,0 +1,84 @@
+<div class="experiences-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="container mt-5">
+      <h1 class="pt-5">Experiencias de turistas</h1>
+      <p class="lead">Descubre las experiencias reales de otros viajeros en República Dominicana</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Category Filter -->
+    <div class="category-filters">
+      <button
+        *ngFor="let category of categories"
+        [class.active]="selectedCategory === category"
+        (click)="setCategory(category)"
+        class="category-btn">
+        {{category}}
+      </button>
+    </div>
+
+    <!-- Experiences Feed -->
+    <div class="experiences-feed">
+      <div class="experience-post" *ngFor="let experience of getFilteredExperiences()">
+        <!-- User Info -->
+        <div class="post-header">
+          <div class="user-info">
+            <img [src]="experience.userImage" [alt]="experience.userName" class="user-avatar">
+            <div class="user-details">
+              <h3>{{experience.userName}}</h3>
+              <div class="post-meta">
+                <span class="location"><i class="fa fa-location-dot"></i> {{experience.location}}</span>
+                <span class="date">{{formatDate(experience.date)}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="rating">
+            <i class="fa fa-star filled" *ngFor="let star of getRatingStars(experience.rating)"></i>
+            <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(experience.rating)"></i>
+          </div>
+        </div>
+
+        <!-- Review Content -->
+        <div class="post-content">
+          <p class="review-text">{{experience.review}}</p>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="image-gallery" *ngIf="experience.images.length > 0">
+          <div class="gallery-grid" [class.single]="experience.images.length === 1"
+               [class.multiple]="experience.images.length > 1">
+            <img *ngFor="let image of experience.images" [src]="image" alt="Experience photo">
+          </div>
+        </div>
+
+        <!-- Post Actions -->
+        <div class="post-actions">
+          <button class="action-btn" (click)="likeExperience(experience)">
+            <i class="fa fa-heart"></i>
+            {{experience.likes}} Me gusta
+          </button>
+          <button class="action-btn">
+            <i class="fa fa-comment"></i>
+            {{experience.comments}} Comentarios
+          </button>
+          <button class="action-btn">
+            <i class="fa fa-share"></i>
+            Compartir
+          </button>
+        </div>
+
+        <!-- Category Tag -->
+        <div class="category-tag">
+          {{experience.category}}
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="getFilteredExperiences().length === 0">
+      <p>No se encontraron experiencias en esta categoría</p>
+    </div>
+  </div>
+</div>
