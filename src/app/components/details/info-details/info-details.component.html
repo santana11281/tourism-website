@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-4">{{destination.name}} - {{destination.province}}</h2>
+      <p class="lead mb-4">{{destination.description}}</p>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title"><i class="fa fa-sun"></i> Clima</h4>
+          <p class="card-text">{{destination.climate}}</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title"><i class="fa fa-calendar"></i> Mejor época para visitar</h4>
+          <p class="card-text">{{destination.bestTimeToVisit}}</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title"><i class="fa fa-hiking"></i> Actividades</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let activity of destination.activities">
+              {{activity}}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h4 class="card-title"><i class="fa fa-plane"></i> Transporte</h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let transport of destination.transportation">
+                  {{transport}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h4 class="card-title"><i class="fa fa-hotel"></i> Alojamiento</h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let accommodation of destination.accommodation">
+                  {{accommodation}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
