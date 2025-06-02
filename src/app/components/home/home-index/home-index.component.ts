@@ -36,10 +36,10 @@ export class HomeIndexComponent {
   ];
 
   statistics: Statistic[] = [
-    { value: '500+', label: 'Destinos', icon: 'fa-map-location-dot' },
+    { value: '500+', label: 'Destinos', icon: 'fa-map' },
     { value: '10k+', label: 'Visitantes', icon: 'fa-users' },
     { value: '100+', label: 'Tours', icon: 'fa-compass' },
-    { value: '50+', label: 'Guías', icon: 'fa-person-hiking' }
+    { value: '50+', label: 'Guías', icon: 'fa-id-card' }
   ];
 
   featuredDestinations: FeaturedDestination[] = [
