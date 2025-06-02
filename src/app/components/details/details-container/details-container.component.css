@@ -1,53 +1,117 @@
-.navigation-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin: 2rem 0;
-  flex-wrap: wrap;
+.page-heading {
+  position: relative;
+  background: linear-gradient(135deg, #0171f9 0%, #00c6fb 100%);
+  padding: 80px 0;
+  margin-bottom: 40px;
+  overflow: hidden;
 }
 
-.navigation-buttons .btn {
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  background: #f8f9fa;
-  color: #2a2a2a;
-  border: none;
-  border-radius: 8px;
+.page-heading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.8;
+  animation: moveBackground 30s linear infinite;
 }
 
-.navigation-buttons .btn:hover,
-.navigation-buttons .btn.active {
-  background: #809fff;
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+.page-heading h3 {
   color: white;
-  transform: translateY(-2px);
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.navigation-buttons .btn i {
-  font-size: 1.1rem;
-}
-
-.content-section {
-  min-height: 400px;
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.more-info {
-  padding: 2rem 0;
-  background: #f8f9fa;
-}
-
-.box-shadow1 {
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.page-heading p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .box-shadow2 {
   background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(1,113,249,0.1);
+  transition: transform 0.3s ease;
+}
+
+.box-shadow2:hover {
+  transform: translateY(-5px);
+}
+
+.box-shadow1 {
+  border-radius: 15px;
+  box-shadow: 0 15px 25px rgba(1,113,249,0.15);
+}
+
+.single-product {
+  padding: 40px 0;
+  background: linear-gradient(135deg, rgba(1,113,249,0.05) 0%, rgba(255,255,255,1) 100%);
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.navigation-buttons .btn {
+  background: #0171f9;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navigation-buttons .btn:hover {
+  background: #0156bc;
+  transform: translateY(-2px);
+}
+
+.navigation-buttons .btn.active {
+  background: #004293;
+  box-shadow: 0 4px 15px rgba(1,113,249,0.3);
+}
+
+.navigation-buttons .btn i {
+  margin-right: 8px;
+}
+
+.content-section {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(1,113,249,0.08);
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .page-heading {
+    padding: 60px 0;
+  }
+
+  .page-heading h3 {
+    font-size: 2rem;
+  }
+
+  .navigation-buttons {
+    justify-content: center;
+  }
 }

@@ -52,14 +52,101 @@
   margin-bottom: 1.5rem;
 }
 
+/* Category Ratings */
+.category-ratings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.category-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.category-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #444;
+}
+
+.category-name i {
+  color: #0056b3;
+}
+
+.category-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.category-score {
+  margin-left: 0.5rem;
+  color: #666;
+}
+
+/* Rating Input Section */
 .rating-input {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.overall-rating {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.overall-rating h4 {
+  color: #0056b3;
+  margin-bottom: 1rem;
 }
 
 .rating-input .stars {
   font-size: 2rem;
   display: inline-block;
 }
+
+.category-ratings-input {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.category-ratings-input h4 {
+  color: #0056b3;
+  margin-bottom: 1rem;
+}
+
+.category-rating-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.category-rating-row:last-child {
+  border-bottom: none;
+}
+
+.category-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #444;
+}
+
+.category-label i {
+  color: #0056b3;
+}
+
 
 .rating-input .fa-star {
   color: #ddd;
@@ -172,6 +259,37 @@
   line-height: 1.6;
 }
 
+.category-ratings-mini {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.category-rating-mini {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.category-name-mini {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.category-name-mini i {
+  color: #0056b3;
+}
+
+.stars-mini {
+  font-size: 0.8rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .rating-header,
@@ -191,5 +309,19 @@
   .user-avatar {
     width: 40px;
     height: 40px;
+  }
+
+  .category-ratings {
+    grid-template-columns: 1fr;
+  }
+
+  .category-ratings-mini {
+    grid-template-columns: 1fr;
+  }
+
+  .category-rating-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
