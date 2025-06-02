@@ -1,1 +1,56 @@
-<p>route works!</p>
+<div class="container">
+  <div class="route-header mb-5">
+    <h2>{{route.origin}} → {{route.destination}}</h2>
+    <div class="route-stats">
+      <span><i class="fa fa-route"></i> {{route.totalDistance}}</span>
+      <span><i class="fa fa-clock"></i> {{route.estimatedTime}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="timeline">
+        <div class="timeline-item" *ngFor="let step of route.steps; let last = last">
+          <div class="timeline-icon">
+            <i class="fa {{step.icon}}"></i>
+          </div>
+          <div class="timeline-content" [class.last-item]="last">
+            <h4>{{step.point}}</h4>
+            <p>{{step.description}}</p>
+            <span class="time"><i class="fa fa-clock"></i> {{step.time}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="transport-options">
+        <h3 class="mb-4">Opciones de Transporte</h3>
+        <div class="transport-card" *ngFor="let option of route.transportOptions">
+          <div class="transport-icon">
+            <i class="fa {{option.icon}}"></i>
+          </div>
+          <div class="transport-info">
+            <h4>{{option.type}}</h4>
+            <div class="transport-details">
+              <span><i class="fa fa-clock"></i> {{option.duration}}</span>
+              <span><i class="fa fa-money-bill"></i> {{option.price}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="travel-tips mt-4">
+        <h3 class="mb-3">Tips de Viaje</h3>
+        <div class="tips-card">
+          <ul class="tips-list">
+            <li *ngFor="let tip of route.tips">
+              <i class="fa fa-check"></i>
+              {{tip}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

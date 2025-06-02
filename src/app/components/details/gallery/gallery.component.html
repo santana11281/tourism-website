@@ -1,1 +1,33 @@
-<p>gallery works!</p>
+<div class="container">
+  <div class="gallery-header">
+    <h2>Galería de Punta Cana</h2>
+    <div class="category-filters">
+      <button
+        *ngFor="let category of categories"
+        [class.active]="selectedCategory === category"
+        (click)="setCategory(category)"
+        class="category-btn">
+        {{category}}
+      </button>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item" *ngFor="let image of filteredImages()">
+      <div class="image-container">
+        <img [src]="image.url" [alt]="image.title" loading="lazy">
+        <div class="image-overlay">
+          <div class="image-info">
+            <h3>{{image.title}}</h3>
+            <p>{{image.description}}</p>
+            <span class="category-tag">{{image.category}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredImages().length === 0" class="no-results">
+    <p>No se encontraron imágenes para esta categoría</p>
+  </div>
+</div>

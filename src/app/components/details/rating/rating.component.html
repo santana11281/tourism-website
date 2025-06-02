@@ -1,44 +1,64 @@
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="tabs-content box-shadow2 ">
-            <div class="row">
-              <div class="nav-wrapper ">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                      data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                      aria-selected="true">Descripcion</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
-                      type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews (3)</button>
-                  </li>
-                </ul>
-              </div>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel"
-                  aria-labelledby="description-tab">
-                  <p>You can search for more templates on Google Search using keywords such as "templatemo digital
-                    marketing", "templatemo one-page", "templatemo gallery", etc. Please tell your friends about our
-                    website. If you need a variety of HTML templates, you may visit Tooplate and Too CSS websites.</p>
-                  <br>
-                  <p>Coloring book air plant shabby chic, crucifix normcore raclette cred swag artisan activated
-                    charcoal. PBR&B fanny pack pok pok gentrify truffaut kitsch helvetica jean shorts edison bulb
-                    poutine next level humblebrag la croix adaptogen. Hashtag poke literally locavore, beard marfa kogi
-                    bruh artisan succulents seitan tonx waistcoat chambray taxidermy. Same cred meggings 3 wolf moon
-                    lomo irony cray hell of bitters asymmetrical gluten-free art party raw denim chillwave tousled
-                    try-hard succulents street art.</p>
-                </div>
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                  <p>Coloring book air plant shabby chic, crucifix normcore raclette cred swag artisan activated
-                    charcoal. PBR&B fanny pack pok pok gentrify truffaut kitsch helvetica jean shorts edison bulb
-                    poutine next level humblebrag la croix adaptogen. <br><br>Hashtag poke literally locavore, beard
-                    marfa kogi bruh artisan succulents seitan tonx waistcoat chambray taxidermy. Same cred meggings 3
-                    wolf moon lomo irony cray hell of bitters asymmetrical gluten-free art party raw denim chillwave
-                    tousled try-hard succulents street art.</p>
-                </div>
-              </div>
+<div class="container">
+  <div class="rating-header">
+    <div class="average-rating">
+      <h2>Valoración General</h2>
+      <div class="rating-stars">
+        <i class="fa fa-star filled" *ngFor="let star of getRatingArray(getAverageRating())"></i>
+        <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(getAverageRating())"></i>
+        <span class="rating-number">{{getAverageRating() | number:'1.1-1'}}/5</span>
+      </div>
+      <p class="review-count">{{reviews.length}} reseñas</p>
+    </div>
+  </div>
+
+  <div class="write-review">
+    <h3>Escribe una reseña</h3>
+    <div class="rating-input">
+      <div class="stars">
+        <i class="fa fa-star"
+          *ngFor="let star of getRatingArray(maxRating); let i = index"
+          [class.filled]="i < newReview.rating"
+          (click)="setRating(i + 1)"
+          (mouseenter)="setRating(i + 1)">
+        </i>
+      </div>
+      <span class="selected-rating">{{newReview.rating}}/5</span>
+    </div>
+    <div class="form-group">
+      <textarea
+        [(ngModel)]="newReview.comment"
+        class="form-control"
+        rows="4"
+        placeholder="Comparte tu experiencia...">
+      </textarea>
+    </div>
+    <button
+      class="btn btn-primary submit-review"
+      (click)="submitReview()"
+      [disabled]="!newReview.comment.trim()">
+      Publicar Reseña
+    </button>
+  </div>
+
+  <div class="reviews-list">
+    <h3>Reseñas de Usuarios</h3>
+    <div class="review-card" *ngFor="let review of reviews">
+      <div class="review-header">
+        <div class="user-info">
+          <img [src]="review.avatar" [alt]="review.username" class="user-avatar">
+          <div class="user-details">
+            <h4>{{review.username}}</h4>
+            <div class="rating-stars">
+              <i class="fa fa-star filled" *ngFor="let star of getRatingArray(review.rating)"></i>
+              <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(review.rating)"></i>
             </div>
+            <span class="review-date">{{review.date | date:'mediumDate'}}</span>
           </div>
         </div>
       </div>
+      <div class="review-content">
+        <p>{{review.comment}}</p>
+      </div>
+    </div>
+  </div>
+</div>
