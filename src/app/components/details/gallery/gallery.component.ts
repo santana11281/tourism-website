@@ -26,37 +26,37 @@ export class GalleryComponent {
       description: 'Lujosos resorts frente al mar'
     },
     {
-      url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/07/03/4c/97.jpg',
+      url: 'https://www.vistaalmar.es/images/stories/fotos-414/natacion.jpg',
       title: 'Deportes Acuáticos',
       category: 'Actividades',
       description: 'Diversas actividades acuáticas disponibles'
     },
     {
-      url: 'https://www.civitatis.com/blog/wp-content/uploads/2019/10/playa-macao-punta-cana.jpg',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Playa_Macao_Dominican_Republic.jpg',
       title: 'Playa Macao',
       category: 'Playas',
       description: 'Playa perfecta para el surf'
     },
     {
-      url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/8f/95.jpg',
+      url: 'https://admin.catamarans-lagoon.com/sites/default/files/2025-01/cover-owner-story-boris-diaw.jpg',
       title: 'Catamarán',
       category: 'Actividades',
       description: 'Excursiones en catamarán por el caribe'
     },
     {
-      url: 'https://media.istockphoto.com/id/1324689485/es/foto/cena-buffet-en-un-hotel-resort-de-lujo.jpg',
+      url: 'https://cdn.sanity.io/images/atvntylo/production/f62a551c8c2ed40a755dc65c109ac87b3984c49b-1080x720.webp?w=3840&q=65&fit=clip&auto=format',
       title: 'Gastronomía Local',
       category: 'Gastronomía',
       description: 'Deliciosa comida dominicana y internacional'
     },
     {
-      url: 'https://i.travelapi.com/hotels/1000000/560000/558800/558749/5c566275_z.jpg',
+      url: 'https://www.fluidra.com/wp-content/uploads/2021/07/infinitas.webp',
       title: 'Piscinas Infinitas',
       category: 'Hoteles',
       description: 'Impresionantes piscinas con vista al mar'
     },
     {
-      url: 'https://www.godominicanrepublic.com/wp-content/uploads/2020/11/Food-1-e1660138508929.jpg',
+      url: 'https://idmphsmkuxkn.compat.objectstorage.us-ashburn-1.oraclecloud.com/pandora-bucket/uploads/2024/11/SaveClip.App_434224954_1122011359112581_428108138976873466_n-1024x683.jpg',
       title: 'Restaurantes',
       category: 'Gastronomía',
       description: 'Variedad de restaurantes gourmet'
