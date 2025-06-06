@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Activity } from '../../models/Activity';
+import { Climate } from '../../models/Climate';
 
 export interface Destino {
   id: number;
@@ -33,6 +34,13 @@ export class DestinosService {
 
   getActivities(destinoId: number): Observable<Activity[]> {
     return this.http.get<Activity[]>(`${this.apiUrl}/GetActivities/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getClima(destinoId: number): Observable<Climate> {
+    return this.http.get<Climate>(`${this.apiUrl}/GetClima/${destinoId}`).pipe(
       retry(3),
       catchError(this.handleError)
     );

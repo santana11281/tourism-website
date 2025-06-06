@@ -7,7 +7,14 @@
       <div class="card mb-4">
         <div class="card-body">
           <h4 class="card-title"><i class="fa fa-sun"></i> Clima</h4>
-          <p class="card-text">{{destination.climate}}</p>
+          <div *ngIf="climate" class="climate-info">
+            <div class="climate-type">
+              <span class="label">Tipo:</span> {{climate.tipo}}
+            </div>
+            <div class="climate-temp">
+              <span class="label">Temperatura:</span> {{climate.temperatura}}°C
+            </div>
+          </div>
         </div>
       </div>
 
@@ -25,7 +32,6 @@
             <div class="col-md-4" *ngFor="let activity of activities">
               <div class="activity-card">
                 <div class="activity-icon">
-
                   <i class="fa {{activity.icon}}"></i>
                 </div>
                 <h5 class="activity-title">{{activity.title}}</h5>
