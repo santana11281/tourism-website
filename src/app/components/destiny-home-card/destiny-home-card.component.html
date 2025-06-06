@@ -1,0 +1,20 @@
+<div class="destination-card">
+  <div class="card-image">
+    <img [src]="destino.imagen_portada_url" [alt]="destino.nombre">
+    <div class="destination-type">{{destino.tipo}}</div>
+    <div class="rating">
+      <i class="fa fa-star filled" *ngFor="let star of getRatingStars(destino.rating)"></i>
+      <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(destino.rating)"></i>
+      <span class="rating-value">{{destino.rating}}</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3>{{destino.nombre}}</h3>
+    <h4> {{destino.provincia}}</h4>
+    <p>{{destino.descripcion}}</p>
+    <a [routerLink]="['/details/info', destino.id]" class="view-more">
+      Ver más <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+</div>
+

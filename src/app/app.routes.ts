@@ -23,10 +23,10 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'details/:id',
+    path: 'details',
     component: DetailsContainerComponent,
     children: [
-      { path: 'info', component: InfoDetailsComponent },
+      { path: 'info/:id', component: InfoDetailsComponent },
       { path: 'route', component: RouteComponent },
       { path: 'gallery', component: GalleryComponent },
       { path: 'rating', component: RatingComponent },

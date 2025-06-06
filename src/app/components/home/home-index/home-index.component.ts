@@ -1,48 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CardDestinationComponent } from "../card-destination/card-destination.component";
 import { FormsModule } from '@angular/forms';
-
-interface FeaturedDestination {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-  rating: number;
-  category: string;
-}
-
-interface Statistic {
-  value: string;
-  label: string;
-  icon: string;
-}
+import { DestinosService, Destino } from '../../../services/destinos.service';
+import { DestinyHomeCardComponent } from '../../destiny-home-card/destiny-home-card.component';
+import { DestinosComponent } from "../../destinos/destinos.component";
 
 @Component({
   selector: 'app-home-index',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    DestinyHomeCardComponent
+],
   templateUrl: './home-index.component.html',
   styleUrl: './home-index.component.css'
 })
-export class HomeIndexComponent {
+export class HomeIndexComponent implements OnInit {
+  destinos: Destino[] = [];
+  filteredDestinos: Destino[] = [];
   searchQuery: string = '';
-  selectedCategory: string = 'recientes';
-  categories = [
-    { name: 'recientes', label: 'Recientes', icon: 'fa-clock' },
-    { name: 'populares', label: 'Populares', icon: 'fa-fire-flame-curved' },
-    { name: 'tendencia', label: 'Tendencia', icon: 'fa-arrow-trend-up' }
-  ];
+  selectedCategory: string = 'Todos';
+  categories: string[] = ['Todos'];
+  isLoading: boolean = true;
+  error: string | null = null;
 
-  statistics: Statistic[] = [
+  constructor(private destinosService: DestinosService) {}
+
+
+
+  statistics = [
     { value: '500+', label: 'Destinos', icon: 'fa-map' },
     { value: '10k+', label: 'Visitantes', icon: 'fa-users' },
     { value: '100+', label: 'Tours', icon: 'fa-compass' },
     { value: '50+', label: 'Guías', icon: 'fa-id-card' }
   ];
 
-  featuredDestinations: FeaturedDestination[] = [
+/*   featuredDestinations: FeaturedDestination[] = [
     {
       id: 1,
       name: 'Punta Cana',
@@ -67,7 +63,7 @@ export class HomeIndexComponent {
       rating: 4.6,
       category: 'Ciudad'
     }
-  ];
+  ]; */
 
   activities = [
     {
@@ -116,7 +112,8 @@ export class HomeIndexComponent {
     }
   ];
 
-  getRatingStars(rating: number): number[] {
+
+    getRatingStars(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
   }
 
@@ -124,7 +121,58 @@ export class HomeIndexComponent {
     return Array(5 - Math.floor(rating)).fill(0);
   }
 
-  selectCategory(categoryName: string) {
-    this.selectedCategory = categoryName;
+
+  ngOnInit(): void {
+    this.loadDestinos();
+  }
+
+  loadDestinos(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.destinosService.getDestinos().subscribe({
+      next: (response) => {
+        this.destinos = response;
+        console.log('Destinos loaded:', this.destinos);
+        this.updateCategories();
+        this.filterDestinos();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching destinos:', error);
+        this.error = error.message || 'Error al cargar los destinos. Por favor, intente nuevamente.';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  updateCategories(): void {
+    const uniqueCategories = new Set(this.destinos.map(d => d.tipo));
+    this.categories = ['Todos', ...Array.from(uniqueCategories)];
+  }
+
+  filterDestinos(): void {
+    this.filteredDestinos = this.destinos.filter(destino => {
+      const matchesCategory = this.selectedCategory === 'Todos' || destino.tipo === this.selectedCategory;
+      const matchesSearch = this.searchQuery === '' ||
+        destino.nombre.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        destino.ciudad.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        destino.provincia.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+      return matchesCategory && matchesSearch;
+    });
+  }
+
+  onSearchChange(): void {
+    this.filterDestinos();
+  }
+
+  onCategoryChange(category: string): void {
+    this.selectedCategory = category;
+    this.filterDestinos();
+  }
+
+  retry(): void {
+    this.loadDestinos();
   }
 }

@@ -21,11 +21,18 @@
       <div class="card mb-4">
         <div class="card-body">
           <h4 class="card-title"><i class="fa fa-hiking"></i> Actividades</h4>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let activity of destination.activities">
-              {{activity}}
-            </li>
-          </ul>
+          <div class="row g-4">
+            <div class="col-md-4" *ngFor="let activity of activities">
+              <div class="activity-card">
+                <div class="activity-icon">
+
+                  <i class="fa {{activity.icon}}"></i>
+                </div>
+                <h5 class="activity-title">{{activity.title}}</h5>
+                <p class="activity-description">{{activity.description}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

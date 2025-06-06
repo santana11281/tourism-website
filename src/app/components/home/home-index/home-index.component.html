@@ -10,12 +10,7 @@
             <p>Descubre los mejores destinos de República Dominicana y planifica tu próxima aventura.</p>
             <div class="search-input">
               <form id="search">
-                <input
-                  type="text"
-                  [(ngModel)]="searchQuery"
-                  name="searchQuery"
-                  placeholder="Buscar destinos..."
-                >
+                <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Buscar destinos...">
                 <button class="search-btn" type="submit">
                   <i class="fa fa-search"></i>
                 </button>
@@ -59,7 +54,7 @@
         <p>Explora nuestros destinos más populares</p>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-6" *ngFor="let destination of featuredDestinations">
+        <!--   <div class="col-lg-4 col-md-6" *ngFor="let destination of destinos">
           <div class="featured-card">
             <div class="card-image">
               <img [src]="destination.image" [alt]="destination.name">
@@ -78,7 +73,11 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
+
+        <app-destiny-home-card *ngFor="let destino of destinos" [destino]="destino">
+        </app-destiny-home-card>
+
       </div>
     </div>
   </section>
@@ -143,5 +142,3 @@
     </div>
   </section>
 </div>
-
-
