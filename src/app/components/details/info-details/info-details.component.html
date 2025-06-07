@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <h2 class="mb-4">{{destination.name}} - {{destination.province}}</h2>
-      <p class="lead mb-4">{{destination.description}}</p>
+    <div class="col-12" >
+ 
 
       <div class="card mb-4">
         <div class="card-body">
@@ -21,7 +20,15 @@
       <div class="card mb-4">
         <div class="card-body">
           <h4 class="card-title"><i class="fa fa-calendar"></i> Mejor época para visitar</h4>
-          <p class="card-text">{{destination.bestTimeToVisit}}</p>
+          <div *ngIf="mejorEpoca; else loading" class="mejor-epoca-info">
+            <p class="card-text">
+              <strong>Época:</strong> {{mejorEpoca.epoca}}<br>
+              <strong>Temporada:</strong> {{mejorEpoca.temporada}}
+            </p>
+          </div>
+          <ng-template #loading>
+            <p class="card-text">Cargando información...</p>
+          </ng-template>
         </div>
       </div>
 
@@ -47,11 +54,15 @@
           <div class="card mb-4">
             <div class="card-body">
               <h4 class="card-title"><i class="fa fa-plane"></i> Transporte</h4>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let transport of destination.transportation">
-                  {{transport}}
-                </li>
-              </ul>
+              <div class="card-body" *ngIf="transporte; else loadingTransport">
+                <div class="transport-info">
+                  <h5 class="mb-2">{{transporte.tipo}}</h5>
+                  <p class="mb-0">{{transporte.descripcion}}</p>
+                </div>
+              </div>
+              <ng-template #loadingTransport>
+                <p class="card-text text-center">Cargando opciones de transporte...</p>
+              </ng-template>
             </div>
           </div>
         </div>
@@ -60,15 +71,36 @@
           <div class="card mb-4">
             <div class="card-body">
               <h4 class="card-title"><i class="fa fa-hotel"></i> Alojamiento</h4>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let accommodation of destination.accommodation">
-                  {{accommodation}}
-                </li>
-              </ul>
+              <div class="card-body" *ngIf="alojamiento; else loadingAlojamiento">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-1">{{alojamiento.nombre}}</h5>
+                  <span class="badge bg-primary rounded-pill">{{alojamiento.precio | currency}}/noche</span>
+                </div>
+                <p class="mb-1"><strong>Tipo:</strong> {{alojamiento.tipo}}</p>
+                <p class="mb-1">{{alojamiento.descripcion}}</p>
+                <p class="mb-1"><strong>Dirección:</strong> {{alojamiento.direccion}}</p>
+                <p class="mb-1"><strong>Contacto:</strong></p>
+                <ul class="list-unstyled">
+                  <li><i class="fa fa-phone"></i> {{alojamiento.telefono}}</li>
+                  <li><i class="fa fa-envelope"></i> {{alojamiento.email}}</li>
+                </ul>
+                <div class="mt-2">
+                  <strong>Rating:</strong>
+                  <span class="ms-2">{{alojamiento.rating}}/5</span>
+                </div>
+              </div>
+              <ng-template #loadingAlojamiento>
+                <p class="card-text text-center">Cargando opciones de alojamiento...</p>
+              </ng-template>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <ng-template #loadingDetalle>
+      <div class="col-12 text-center">
+        <p>Cargando información del destino...</p>
+      </div>
+    </ng-template>
   </div>
 </div>

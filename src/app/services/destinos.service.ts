@@ -4,6 +4,40 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Activity } from '../../models/Activity';
 import { Climate } from '../../models/Climate';
+import { environment } from '../../environments/devlopment';
+
+export interface Detalle {
+  id: number;
+  destino_id: number;
+  ciudad: string;
+  provincia: string;
+  detalle: string;
+  descripcion: string;
+}
+
+export interface Alojamiento {
+  id: number;
+  nombre: string;
+  tipo: string;
+  descripcion: string;
+  direccion: string;
+  telefono: string;
+  email: string;
+  precio: number;
+  rating: number;
+}
+
+export interface Transporte {
+  id: number;
+  tipo: string;
+  descripcion: string;
+}
+
+export interface MejorEpoca {
+  id: number;
+  epoca: string;
+  temporada: string;
+}
 
 export interface Destino {
   id: number;
@@ -21,7 +55,7 @@ export interface Destino {
   providedIn: 'root'
 })
 export class DestinosService {
-  private apiUrl = 'https://localhost:7023/destinos';
+  private apiUrl = environment.apiUrl+ 'destinos';
 
   constructor(private http: HttpClient) {}
 
@@ -41,6 +75,34 @@ export class DestinosService {
 
   getClima(destinoId: number): Observable<Climate> {
     return this.http.get<Climate>(`${this.apiUrl}/GetClima/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getMejorEpoca(destinoId: number): Observable<MejorEpoca> {
+    return this.http.get<MejorEpoca>(`${this.apiUrl}/GetMejorEpoca/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getTransporte(destinoId: number): Observable<Transporte> {
+    return this.http.get<Transporte>(`${this.apiUrl}/GetTransporte/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getAlojamiento(destinoId: number): Observable<Alojamiento> {
+    return this.http.get<Alojamiento>(`${this.apiUrl}/GetAlojamiento/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getDetalle(destinoId: number): Observable<Detalle> {
+    return this.http.get<Detalle>('http://localhost:5041/Destinos/GetDetalle/' + destinoId).pipe(
       retry(3),
       catchError(this.handleError)
     );
