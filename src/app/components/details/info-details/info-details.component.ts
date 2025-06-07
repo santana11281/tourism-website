@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DestinosService, MejorEpoca, Transporte, Alojamiento, Detalle } from '../../../services/destinos.service';
+import { StoredService } from '../../../services/stored.service';
 import { Activity } from '../../../../models/Activity';
 import { Climate } from '../../../../models/Climate';
 
@@ -13,7 +14,6 @@ import { Climate } from '../../../../models/Climate';
   styleUrl: './info-details.component.css'
 })
 export class InfoDetailsComponent implements OnInit {
-  destinoId = 1; // This should come from route params
   detalle: Detalle | null = null;
 
   activities: Activity[] = [];
@@ -22,9 +22,14 @@ export class InfoDetailsComponent implements OnInit {
   transporte: Transporte | null = null;
   alojamiento: Alojamiento | null = null;
 
-  constructor(private destinosService: DestinosService) {}
+  constructor(
+    private destinosService: DestinosService,
+    private storedService: StoredService
+  ) {}
 
   ngOnInit() {
+    // Set initial destinoid
+    this.storedService.destinoid = 1;
     this.loadDetalle();
     this.loadActivities();
     this.loadClimate();
@@ -34,71 +39,62 @@ export class InfoDetailsComponent implements OnInit {
   }
 
   loadDetalle() {
-    this.destinosService.getDetalle(this.destinoId).subscribe({
+    this.destinosService.getDetalle(this.storedService.destinoid).subscribe({
       next: (detalle) => {
         this.detalle = detalle;
         console.log('Detalle loaded:', detalle);
       },
-      error: (error) => {
-        console.error('Error loading detalle:', error);
+      error: () => {
       }
     });
   }
 
   loadActivities() {
-    this.destinosService.getActivities(this.destinoId).subscribe({
+    this.destinosService.getActivities(this.storedService.destinoid).subscribe({
       next: (activities) => {
         this.activities = activities;
       },
-      error: (error) => {
-        console.error('Error loading activities:', error);
+      error: () => {
       }
     });
   }
 
   loadClimate() {
-    this.destinosService.getClima(this.destinoId).subscribe({
+    this.destinosService.getClima(this.storedService.destinoid).subscribe({
       next: (climate) => {
         this.climate = climate;
       },
-      error: (error) => {
-        console.error('Error loading climate:', error);
+      error: () => {
       }
     });
   }
 
   loadMejorEpoca() {
-    this.destinosService.getMejorEpoca(this.destinoId).subscribe({
+    this.destinosService.getMejorEpoca(this.storedService.destinoid).subscribe({
       next: (mejorEpoca) => {
         this.mejorEpoca = mejorEpoca;
-        console.log('Mejor epoca loaded:', mejorEpoca);
       },
-      error: (error) => {
-        console.error('Error loading mejor epoca:', error);
+      error: () => {
       }
     });
   }
 
   loadTransporte() {
-    this.destinosService.getTransporte(this.destinoId).subscribe({
+    this.destinosService.getTransporte(this.storedService.destinoid).subscribe({
       next: (transportes) => {
         this.transporte = transportes;
-        console.log('Transportes loaded:', transportes);
       },
-      error: (error) => {
-        console.error('Error loading transporte:', error);
+      error: () => {
       }
     });
   }
 
   loadAlojamiento() {
-    this.destinosService.getAlojamiento(this.destinoId).subscribe({
+    this.destinosService.getAlojamiento(this.storedService.destinoid).subscribe({
       next: (alojamiento) => {
         this.alojamiento = alojamiento;
-        console.log('Alojamiento loaded:', alojamiento);
       },
-      error: (error) => {
-        console.error('Error loading alojamiento:', error);
+      error: () => {
       }
     });
   }
