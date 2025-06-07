@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DestinosService, Detalle } from '../../../services/destinos.service';
 import { StoredService } from '../../../services/stored.service';
@@ -14,16 +14,17 @@ import { StoredService } from '../../../services/stored.service';
 export class DetailsContainerComponent implements OnInit {
   detalle: Detalle | null = null;
 
+  get destinoId(): number {
+    return this.storedService.destinoid;
+  }
+
   constructor(
     private destinosService: DestinosService,
     private storedService: StoredService
   ) {}
 
   ngOnInit(): void {
-    // Get id from url and use stored service
-this.storedService.destinoid = Number(this.storedService.destinoid) || 1; // Default to 1 if not set
     this.loadDetalle(this.storedService.destinoid);
-    console.log('Stored destinoid:', this.storedService.destinoid);
   }
 
   loadDetalle(id: number) {
