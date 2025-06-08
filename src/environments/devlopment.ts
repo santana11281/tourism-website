@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl : 'http://tourism-api-123-28.runasp.net/'
+  apiUrl : 'https://tourismapi20250607211703-huggf7htdfbffce7.canadacentral-01.azurewebsites.net/'
   }
