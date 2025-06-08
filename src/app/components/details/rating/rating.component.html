@@ -91,7 +91,59 @@
   <!-- Reviews List -->
   <div class="reviews-list mt-5">
     <h3>Opiniones de otros usuarios</h3>
-    <div class="review-card" *ngFor="let review of reviews">
+    
+    <!-- Sample Review Card -->
+    <div class="review-card card mb-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex align-items-center">
+            <img [src]="getAvatarPath(undefined)"
+                 alt="María Rodríguez"
+                 class="rounded-circle me-3"
+                 style="width: 50px; height: 50px; object-fit: cover;"
+                 (error)="handleImageError($event)">
+            <div>
+              <h5 class="card-title mb-0">María Rodríguez</h5>
+              <p class="text-muted small mb-0">Visitó en Mayo 2025</p>
+            </div>
+          </div>
+          <div class="overall-rating">
+            <span class="badge bg-primary p-2">
+              <i class="fa fa-star"></i> 4.5/5
+            </span>
+          </div>
+        </div>
+
+        <div class="category-ratings mb-3">
+          <div class="row">
+            <div class="col-md-4">
+              <small><i class="fa fa-utensils"></i> Gastronomía: 5/5</small>
+            </div>
+            <div class="col-md-4">
+              <small><i class="fa fa-hotel"></i> Alojamiento: 4/5</small>
+            </div>
+            <div class="col-md-4">
+              <small><i class="fa fa-map-marker"></i> Ubicación: 5/5</small>
+            </div>
+          </div>
+        </div>
+
+        <p class="card-text">
+          "Excelente experiencia en general. Las playas son espectaculares y muy limpias.
+          La comida local es deliciosa, especialmente los mariscos frescos. El hotel tenía
+          una vista increíble aunque el servicio de habitaciones podría mejorar. La ubicación
+          es perfecta, cerca de todas las atracciones principales. Definitivamente recomendaría
+          este destino a cualquiera que busque unas vacaciones relajantes junto al mar."
+        </p>
+
+        <div class="review-footer text-muted">
+          <small><i class="fa fa-thumbs-up"></i> 15 personas encontraron útil esta opinión</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Reviews -->
+    <div class="review-card card mb-4" *ngFor="let review of reviews">
       <!-- Display reviews as before -->
     </div>
   </div>

@@ -27,9 +27,9 @@ export const routes: Routes = [
     component: DetailsContainerComponent,
     children: [
       { path: 'info/:id', component: InfoDetailsComponent },
-      { path: 'route', component: RouteComponent },
-      { path: 'gallery', component: GalleryComponent },
-      { path: 'rating', component: RatingComponent },
+      { path: 'route/:id', component: RouteComponent },
+      { path: 'gallery/:id', component: GalleryComponent },
+      { path: 'rating/:id', component: RatingComponent },
       { path: '', redirectTo: 'info', pathMatch: 'full' }
     ]
   },
