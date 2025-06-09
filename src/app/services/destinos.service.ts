@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { Activity } from '../../models/Activity';
 import { Climate } from '../../models/Climate';
 import { environment } from '../../environments/devlopment';
+import { Route } from '../models/Route';
 
 export interface Detalle {
   id: number;
@@ -55,12 +56,12 @@ export interface Destino {
   providedIn: 'root'
 })
 export class DestinosService {
-  private apiUrl = environment.apiUrl+ 'destinos';
+  private apiUrl = environment.apiUrl + 'destinos';
 
   constructor(private http: HttpClient) {}
 
   getDestinos(): Observable<Destino[]> {
-    return this.http.get<Destino[]>(this.apiUrl+"/GetDestinos").pipe(
+    return this.http.get<Destino[]>(this.apiUrl + "/GetDestinos").pipe(
       retry(3),
       catchError(this.handleError)
     );
@@ -102,7 +103,14 @@ export class DestinosService {
   }
 
   getDetalle(destinoId: number): Observable<Detalle> {
-    return this.http.get<Detalle>('http://localhost:5041/Destinos/GetDetalle/' + destinoId).pipe(
+    return this.http.get<Detalle>(`${environment.apiUrl}destinos/GetDetalle/${destinoId}`).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+  }
+
+  getRutas(destinoId: number): Observable<Route[]> {
+    return this.http.get<Route[]>(`${environment.apiUrl}destinos/rutas/${destinoId}`).pipe(
       retry(3),
       catchError(this.handleError)
     );
@@ -110,15 +118,12 @@ export class DestinosService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // Client-side or network error occurred
       console.error('An error occurred:', error.error.message);
     } else {
-      // Backend returned an unsuccessful response code
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    // Return an observable with a user-facing error message
     return throwError(() => new Error('No se pudo cargar los destinos. Por favor, intente nuevamente más tarde.'));
   }
 }

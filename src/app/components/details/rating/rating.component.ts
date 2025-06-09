@@ -1,6 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { StoredService } from '../../../services/stored.service';
+
+interface CategoryRating {
+  name: string;
+  rating: number;
+  icon: string;
+}
+
+interface Review {
+  username: string;
+  destinoId: number;
+  date: string;
+  ratings: {
+    overall: number;
+    categories: CategoryRating[];
+  };
+  comment: string;
+}
 
 @Component({
   selector: 'app-rating',
@@ -10,10 +28,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
-  
-  // Sample review data structure
-  newReview = {
+
+  newReview: Review = {
     username: '',
+    destinoId: 0,
+    date: new Date().toLocaleDateString(),
     ratings: {
       overall: 0,
       categories: [
@@ -25,18 +44,53 @@ export class RatingComponent implements OnInit {
     comment: ''
   };
 
-  // Array to store reviews
-  reviews = [];
+  reviews: Review[] = [];
 
-  constructor() { }
+  constructor(private storedService: StoredService) { }
 
   ngOnInit(): void {
-    // Initialize component
+    this.newReview.destinoId = this.storedService.destinoid;
+    this.loadReviews();
+  }
+
+  private loadReviews(): void {
+    const savedReviews = localStorage.getItem(`reviews_${this.newReview.destinoId}`);
+    if (savedReviews) {
+      this.reviews = JSON.parse(savedReviews);
+    }
+  }
+
+  private saveReviews(): void {
+    localStorage.setItem(
+      `reviews_${this.newReview.destinoId}`,
+      JSON.stringify(this.reviews)
+    );
   }
 
   submitRating() {
-    // Handle form submission
-    console.log('Rating submitted:', this.newReview);
+    const review: Review = {
+      ...this.newReview,
+      date: new Date().toLocaleDateString()
+    };
+
+    this.reviews.unshift(review);
+    this.saveReviews();
+
+    // Reset form
+    this.newReview = {
+      username: '',
+      destinoId: this.storedService.destinoid,
+      date: new Date().toLocaleDateString(),
+      ratings: {
+        overall: 0,
+        categories: [
+          { name: 'Gastronomía', rating: 0, icon: 'fa-utensils' },
+          { name: 'Alojamiento', rating: 0, icon: 'fa-hotel' },
+          { name: 'Ubicación', rating: 0, icon: 'fa-map-marker' }
+        ]
+      },
+      comment: ''
+    };
   }
 
   setCategoryRating(categoryName: string, rating: number) {
@@ -49,9 +103,7 @@ export class RatingComponent implements OnInit {
   defaultAvatarPath = 'assets/images/avatars/user-avatar.jpg';
 
   getAvatarPath(avatarPath: string | undefined): string {
-    //https://img.icons8.com/pastel-glyph/64/teacher-female--v1.png" alt="teacher-female--v1
-    let defaultAvatarPath = 'https://img.icons8.com/pastel-glyph/64/teacher-female--v1.png';
-    return avatarPath || defaultAvatarPath;
+    return avatarPath || 'https://img.icons8.com/pastel-glyph/64/teacher-female--v1.png';
   }
 
   handleImageError(event: Event): void {

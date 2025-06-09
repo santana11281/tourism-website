@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Route } from '../../../models/Route';
+import { StoredService } from '../../../services/stored.service';
+import { DestinosService } from '../../../services/destinos.service';
 
 @Component({
   selector: 'app-route',
@@ -8,63 +11,44 @@ import { CommonModule } from '@angular/common';
   templateUrl: './route.component.html',
   styleUrl: './route.component.css'
 })
-export class RouteComponent {
-  route = {
-    origin: 'Santo Domingo',
-    destination: 'Punta Cana',
-    totalDistance: '200 km',
-    estimatedTime: '2 horas 30 minutos',
-    steps: [
-      {
-        point: 'Santo Domingo',
-        description: 'Salida desde Santo Domingo',
-        time: '0:00',
-        icon: 'fa-city'
+export class RouteComponent implements OnInit {
+  routes: Route[] = [];
+  loading = false;
+  error: string | null = null;
+
+  constructor(
+    private destinosService: DestinosService,
+    private storedService: StoredService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    const destinoId = this.storedService.destinoid;
+    if (destinoId) {
+      this.loadRoutes(destinoId);
+    }
+  }
+
+  private loadRoutes(destinoId: number) {
+    this.loading = true;
+    this.error = null;
+
+    this.destinosService.getRutas(destinoId).subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          this.routes = [data[0]];
+        } else {
+          this.error = 'No se encontraron rutas para este destino.';
+        }
+        this.loading = false;
+        this.cdr.detectChanges();
       },
-      {
-        point: 'San Pedro de Macorís',
-        description: 'Paso por San Pedro de Macorís. Parada recomendada para descanso.',
-        time: '1:00',
-        icon: 'fa-coffee'
-      },
-      {
-        point: 'La Romana',
-        description: 'Atravesar La Romana. Oportunidad para visitar Altos de Chavón.',
-        time: '1:45',
-        icon: 'fa-landmark'
-      },
-      {
-        point: 'Punta Cana',
-        description: 'Llegada a Punta Cana. Dirígete a la zona hotelera.',
-        time: '2:30',
-        icon: 'fa-umbrella-beach'
+      error: (error) => {
+        console.error('Error loading routes:', error);
+        this.error = 'Error cargando las rutas. Por favor intente más tarde.';
+        this.loading = false;
+        this.cdr.detectChanges();
       }
-    ],
-    transportOptions: [
-      {
-        type: 'Carro privado',
-        price: '$50-70',
-        duration: '2h 30min',
-        icon: 'fa-car'
-      },
-      {
-        type: 'Autobús',
-        price: '$15-25',
-        duration: '3h',
-        icon: 'fa-bus'
-      },
-      {
-        type: 'Transfer privado',
-        price: '$80-100',
-        duration: '2h 30min',
-        icon: 'fa-shuttle-van'
-      }
-    ],
-    tips: [
-      'Salir temprano para evitar el tráfico',
-      'Llevar suficiente agua y snacks',
-      'Mantener efectivo para peajes',
-      'Revisar el clima antes de partir'
-    ]
-  };
+    });
+  }
 }

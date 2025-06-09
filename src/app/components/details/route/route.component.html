@@ -1,56 +1,79 @@
-<div class="container">
-  <div class="route-header mb-5">
-    <h2>{{route.origin}} → {{route.destination}}</h2>
-    <div class="route-stats">
-      <span><i class="fa fa-route"></i> {{route.totalDistance}}</span>
-      <span><i class="fa fa-clock"></i> {{route.estimatedTime}}</span>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="timeline">
-        <div class="timeline-item" *ngFor="let step of route.steps; let last = last">
-          <div class="timeline-icon">
-            <i class="fa {{step.icon}}"></i>
-          </div>
-          <div class="timeline-content" [class.last-item]="last">
-            <h4>{{step.point}}</h4>
-            <p>{{step.description}}</p>
-            <span class="time"><i class="fa fa-clock"></i> {{step.time}}</span>
-          </div>
-        </div>
+<div class="container" *ngIf="!loading && !error && routes.length > 0">
+  <div class="route-container mb-5">
+    <div class="route-header mb-5">
+      <h2>{{routes[0].ruta.origen}} → {{routes[0].ruta.destino}}</h2>
+      <div class="route-stats">
+        <span><i class="fa fa-route"></i> {{routes[0].ruta.distancia_km}} km</span>
+        <span><i class="fa fa-clock"></i> {{routes[0].ruta.duracion}}</span>
       </div>
     </div>
 
-    <div class="col-lg-4">
-      <div class="transport-options">
-        <h3 class="mb-4">Opciones de Transporte</h3>
-        <div class="transport-card" *ngFor="let option of route.transportOptions">
-          <div class="transport-icon">
-            <i class="fa {{option.icon}}"></i>
-          </div>
-          <div class="transport-info">
-            <h4>{{option.type}}</h4>
-            <div class="transport-details">
-              <span><i class="fa fa-clock"></i> {{option.duration}}</span>
-              <span><i class="fa fa-money-bill"></i> {{option.price}}</span>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="timeline">
+          <!-- Default route points when no paradas -->
+          <ng-container *ngIf="routes[0].paradas.length === 0">
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <i class="fa fa-city"></i>
+              </div>
+              <div class="timeline-content">
+                <h4>{{routes[0].ruta.origen}}</h4>
+                <p>Punto de partida</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <i class="fa fa-location-dot"></i>
+              </div>
+              <div class="timeline-content last-item">
+                <h4>{{routes[0].ruta.destino}}</h4>
+                <p>Destino final</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="transport-options">
+          <h3 class="mb-4">Opciones de Transporte</h3>
+          <div class="transport-card" *ngFor="let option of routes[0].transporteOpciones">
+            <div class="transport-icon">
+              <i class="fa fa-{{option.icono}}"></i>
+            </div>
+            <div class="transport-info">
+              <h4>{{option.tipo}}</h4>
+              <div class="transport-details">
+                <span><i class="fa fa-clock"></i> {{option.duracion}}</span>
+                <span><i class="fa fa-money-bill"></i> ${{option.precio_min}} - ${{option.precio_max}}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="travel-tips mt-4">
-        <h3 class="mb-3">Tips de Viaje</h3>
-        <div class="tips-card">
-          <ul class="tips-list">
-            <li *ngFor="let tip of route.tips">
-              <i class="fa fa-check"></i>
-              {{tip}}
-            </li>
-          </ul>
+        <div class="travel-tips mt-4">
+          <h3 class="mb-3">Tips de Viaje</h3>
+          <div class="tips-card">
+            <ul class="tips-list">
+              <li *ngFor="let tip of routes[0].tips">
+                <i class="fa fa-check"></i>
+                {{tip.texto}}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="loading-spinner" *ngIf="loading">
+  <i class="fa fa-spinner fa-spin"></i>
+  <p>Cargando rutas...</p>
+</div>
+
+<div class="error-message" *ngIf="error">
+  <i class="fa fa-exclamation-circle"></i>
+  <p>{{error}}</p>
 </div>

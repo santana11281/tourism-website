@@ -91,60 +91,42 @@
   <!-- Reviews List -->
   <div class="reviews-list mt-5">
     <h3>Opiniones de otros usuarios</h3>
-    
-    <!-- Sample Review Card -->
-    <div class="review-card card mb-4">
+
+    <!-- User Reviews -->
+    <div class="review-card card mb-4" *ngFor="let review of reviews">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-start">
           <div class="d-flex align-items-center">
             <img [src]="getAvatarPath(undefined)"
-                 alt="María Rodríguez"
+                 [alt]="review.username"
                  class="rounded-circle me-3"
                  style="width: 50px; height: 50px; object-fit: cover;"
                  (error)="handleImageError($event)">
             <div>
-              <h5 class="card-title mb-0">María Rodríguez</h5>
-              <p class="text-muted small mb-0">Visitó en Mayo 2025</p>
+              <h5 class="card-title mb-0">{{review.username}}</h5>
+              <p class="text-muted small mb-0">Visitó en {{review.date}}</p>
             </div>
           </div>
           <div class="overall-rating">
             <span class="badge bg-primary p-2">
-              <i class="fa fa-star"></i> 4.5/5
+              <i class="fa fa-star"></i> {{review.ratings.overall}}/5
             </span>
           </div>
         </div>
 
         <div class="category-ratings mb-3">
           <div class="row">
-            <div class="col-md-4">
-              <small><i class="fa fa-utensils"></i> Gastronomía: 5/5</small>
-            </div>
-            <div class="col-md-4">
-              <small><i class="fa fa-hotel"></i> Alojamiento: 4/5</small>
-            </div>
-            <div class="col-md-4">
-              <small><i class="fa fa-map-marker"></i> Ubicación: 5/5</small>
+            <div class="col-md-4" *ngFor="let category of review.ratings.categories">
+              <small>
+                <i class="fa {{category.icon}}"></i>
+                {{category.name}}: {{category.rating}}/5
+              </small>
             </div>
           </div>
         </div>
 
-        <p class="card-text">
-          "Excelente experiencia en general. Las playas son espectaculares y muy limpias.
-          La comida local es deliciosa, especialmente los mariscos frescos. El hotel tenía
-          una vista increíble aunque el servicio de habitaciones podría mejorar. La ubicación
-          es perfecta, cerca de todas las atracciones principales. Definitivamente recomendaría
-          este destino a cualquiera que busque unas vacaciones relajantes junto al mar."
-        </p>
-
-        <div class="review-footer text-muted">
-          <small><i class="fa fa-thumbs-up"></i> 15 personas encontraron útil esta opinión</small>
-        </div>
+        <p class="card-text">{{review.comment}}</p>
       </div>
-    </div>
-
-    <!-- Dynamic Reviews -->
-    <div class="review-card card mb-4" *ngFor="let review of reviews">
-      <!-- Display reviews as before -->
     </div>
   </div>
 </div>

@@ -54,26 +54,7 @@
         <p>Explora nuestros destinos más populares</p>
       </div>
       <div class="row">
-        <!--   <div class="col-lg-4 col-md-6" *ngFor="let destination of destinos">
-          <div class="featured-card">
-            <div class="card-image">
-              <img [src]="destination.image" [alt]="destination.name">
-              <div class="category-tag">{{destination.category}}</div>
-              <div class="rating">
-                <i class="fa fa-star filled" *ngFor="let star of getRatingStars(destination.rating)"></i>
-                <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(destination.rating)"></i>
-                <span>{{destination.rating}}</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <h3>{{destination.name}}</h3>
-              <p>{{destination.description}}</p>
-              <a [routerLink]="['/details', destination.id]" class="explore-btn">
-                Explorar <i class="fa fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </div> -->
+
 
         <app-destiny-home-card *ngFor="let destino of destinos" [destino]="destino">
         </app-destiny-home-card>
@@ -120,10 +101,7 @@
                 <p>{{testimonial.location}}</p>
               </div>
             </div>
-            <div class="rating">
-              <i class="fa fa-star filled" *ngFor="let star of getRatingStars(testimonial.rating)"></i>
-              <i class="fa fa-star empty" *ngFor="let star of getEmptyStars(testimonial.rating)"></i>
-            </div>
+
             <p class="testimonial-text">"{{testimonial.comment}}"</p>
           </div>
         </div>
