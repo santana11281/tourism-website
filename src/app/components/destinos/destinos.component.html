@@ -72,7 +72,7 @@
               </div>
 
               <div class="highlights">
-                <h5>Destacados</h5>
+                <h5>Destacados              </h5>
                 <ul>
                   <li *ngFor="let highlight of destination.highlights">
                     <i class="fa fa-star"></i> {{highlight}}
@@ -83,6 +83,7 @@
 
             <!-- Action Button -->
             <a [routerLink]="['/details', destination.id]" class="btn btn-primary learn-more">
+
               <i class="fa fa-info-circle"></i> Ver más detalles
             </a>
           </div>

@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { Activity } from '../../models/Activity';
 import { Climate } from '../../models/Climate';
 import { environment } from '../../environments/devlopment';
 import { Route } from '../models/Route';
+import { Detalle } from '../models/Detalle';
 
-export interface Detalle {
-  id: number;
-  destino_id: number;
-  ciudad: string;
-  provincia: string;
-  detalle: string;
-  descripcion: string;
-}
 
 export interface Alojamiento {
   id: number;
@@ -103,9 +96,12 @@ export class DestinosService {
   }
 
   getDetalle(destinoId: number): Observable<Detalle> {
-    return this.http.get<Detalle>(`${environment.apiUrl}destinos/GetDetalle/${destinoId}`).pipe(
-      retry(3),
-      catchError(this.handleError)
+    console.log(`Fetching details for destination ID: ${destinoId}`);
+    return this.http.get<Detalle>(`${this.apiUrl}/GetDetalle/${destinoId}`).pipe(
+      map((resp) => {
+         // Adapt the returned JSON (for example, map "detalle" to "descripcion" and "descripcion" to "descripcion_larga" if needed)
+         return { ...resp, descripcion: resp.detalle, descripcion_larga: resp.descripcion };
+      })
     );
   }
 
@@ -118,12 +114,9 @@ export class DestinosService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
     } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
     }
     return throwError(() => new Error('No se pudo cargar los destinos. Por favor, intente nuevamente más tarde.'));
   }
 }
+

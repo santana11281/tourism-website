@@ -5,9 +5,8 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-lg-12">
-          <h3>Punta cana</h3>
-          <p style="color:white;">Destino de ensueño famoso por sus playas de arena blanca bordeadas
-            de palmeras y sus aguas turquesas y cálidas.</p>
+          <h3>{{dataDetalle?.ciudad}}</h3>
+          <p style="color:white;">{{dataDetalle?.descripcion}}</p>
         </div>
       </div>
     </div>
@@ -18,15 +17,13 @@
       <div class="row box-shadow2 p-5 rounded">
         <div class="col-lg-6 ">
           <div class="left-image ">
-            <img class="box-shadow1" src="https://lahaciendapark.com/storage/2024/10/Isla-Saona.png" alt="">
+            <img class="box-shadow1" [src]="dataDetalle?.img_url" alt="error">
           </div>
         </div>
         <div class="col-lg-6 align-self-center">
-          <h4>Punta cana</h4>
-          <span >	La Altagracia</span>
-          <p>LUGX Gaming Template is based on the latest Bootstrap 5 CSS framework. This template is provided by
-            TemplateMo and it is suitable for your gaming shop ecommerce websites. Feel free to use this for any
-            purpose. Thank you.</p>
+          <h4>{{dataDetalle?.ciudad}} </h4>
+          <span style="color: #00000093;font-size: 1.1rem;">{{dataDetalle?.provincia}}</span>
+          <p style="font-size: 1.2rem;">{{dataDetalle?.descripcion}}</p>
           <div class="navigation-buttons">
             <a [routerLink]="['info', destinoId]" routerLinkActive="active" class="btn btn-primary">
               <i class="fa fa-info-circle"></i> Info

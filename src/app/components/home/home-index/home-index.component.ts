@@ -133,13 +133,11 @@ export class HomeIndexComponent implements OnInit {
     this.destinosService.getDestinos().subscribe({
       next: (response) => {
         this.destinos = response;
-        console.log('Destinos loaded:', this.destinos);
         this.updateCategories();
         this.filterDestinos();
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error fetching destinos:', error);
         this.error = error.message || 'Error al cargar los destinos. Por favor, intente nuevamente.';
         this.isLoading = false;
       }
