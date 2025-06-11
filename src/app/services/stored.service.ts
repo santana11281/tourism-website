@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoredService {
-  private _destinoid: number = 0;
-
-  get destinoid(): number {
-    return this._destinoid;
-  }
+  private destinoid$ = new BehaviorSubject<number>(0);
 
   set destinoid(value: number) {
-    this._destinoid = value;
+    this.destinoid$.next(value);
   }
+  get destinoid(): number {
+    return this.destinoid$.value;
+  }
+
+  // Observable to allow components to subscribe to changes
+  get destinoidChanges() {
+    return this.destinoid$.asObservable();
+  }
+
+  // subscribe to _destinoid changes
 }

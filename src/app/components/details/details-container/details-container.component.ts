@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import {  RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DestinosService } from '../../../services/destinos.service';
 import { StoredService } from '../../../services/stored.service';
@@ -14,29 +14,31 @@ import { Detalle } from '../../../models/Detalle';
 })
 export class DetailsContainerComponent implements OnInit {
   dataDetalle: Detalle | null = null;
+  private storedService: StoredService = inject(StoredService);
+  private destinosService: DestinosService = inject(DestinosService);
+ destinoId: number = 0; // Initialize with stored ID
 
-  get destinoId(): number {
-    return this.storedService.destinoid;
+
+
+  constructor() {
+
+
+
   }
 
-  constructor(
-    private destinosService: DestinosService,
-    private storedService: StoredService,
-    private cdr: ChangeDetectorRef,
-    private router:ActivatedRoute
-  ) {}
-
   ngOnInit(): void {
-     console.log("%c "+"this.dataDetalle, "+"color: red; font-weight: bold;");
-     this.router.params.subscribe(params => {
-      const id = +params['id'];
-      console.log("%c "+"id: "+id, "color: blue; font-weight: bold;");
+
+    this.storedService.destinoidChanges.subscribe((id) => {
+      console.log('%cDetailsContainerComponent: ', 'color: blue; font-weight: bold;', id);
       if (id) {
-        this.storedService.destinoid = id;
+        this.destinoId = id; // Update local destinoId
+        this.loadDetalle(id);
+      } else {
+        console.warn('No destino ID found, cannot load details.');
       }
-    }
-    );
-    this.loadDetalle(this.storedService.destinoid);
+    });
+
+
   }
 
   loadDetalle(id: number) {

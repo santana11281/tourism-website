@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { DestinosService, MejorEpoca, Transporte, Alojamiento } from '../../../services/destinos.service';
+import {
+  DestinosService,
+  MejorEpoca,
+  Transporte,
+  Alojamiento,
+} from '../../../services/destinos.service';
 import { StoredService } from '../../../services/stored.service';
 import { Activity } from '../../../../models/Activity';
 import { Climate } from '../../../../models/Climate';
@@ -12,7 +17,7 @@ import { Detalle } from '../../../models/Detalle';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './info-details.component.html',
-  styleUrl: './info-details.component.css'
+  styleUrl: './info-details.component.css',
 })
 export class InfoDetailsComponent implements OnInit {
   dataDetalle: Detalle | null = null;
@@ -24,21 +29,33 @@ export class InfoDetailsComponent implements OnInit {
   alojamiento: Alojamiento | null = null;
   isLoading: boolean = true;
 
-  constructor(
-    private destinosService: DestinosService,
-    private storedService: StoredService,
-    private router: ActivatedRoute
-  ) {}
+  private storedService: StoredService = inject(StoredService);
+  private destinosService: DestinosService = inject(DestinosService);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  destinoId: number = this.storedService.destinoid; // Initialize with stored ID
+
+  constructor() {
+  
+  }
 
   ngOnInit() {
-    // Set initial destinoid
-    this.storedService.destinoid = this.router.snapshot.params['id'];
-    this.loadDetalle();
-    this.loadActivities();
-    this.loadClimate();
-    this.loadMejorEpoca();
-    this.loadTransporte();
-    this.loadAlojamiento();
+
+    this.route.params.subscribe((params) => {
+      const id = +params['id']; // Convert to number
+      if (id) {
+        this.storedService.destinoid = id; // Update stored ID
+        this.loadDetalle();
+        this.loadActivities();
+        this.loadClimate();
+        this.loadMejorEpoca();
+        this.loadTransporte();
+        this.loadAlojamiento();
+      } else {
+        console.warn('No destino ID found in route parameters.');
+      }
+    }
+    );
+
   }
 
   loadDetalle() {
@@ -50,7 +67,7 @@ export class InfoDetailsComponent implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -63,7 +80,7 @@ export class InfoDetailsComponent implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -76,7 +93,7 @@ export class InfoDetailsComponent implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -89,7 +106,7 @@ export class InfoDetailsComponent implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -102,20 +119,22 @@ export class InfoDetailsComponent implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      }
+      },
     });
   }
 
   loadAlojamiento() {
     this.isLoading = true;
-    this.destinosService.getAlojamiento(this.storedService.destinoid).subscribe({
-      next: (alojamiento) => {
-        this.alojamiento = alojamiento;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      }
-    });
+    this.destinosService
+      .getAlojamiento(this.storedService.destinoid)
+      .subscribe({
+        next: (alojamiento) => {
+          this.alojamiento = alojamiento;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+      });
   }
 }
