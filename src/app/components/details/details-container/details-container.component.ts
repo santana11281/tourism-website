@@ -45,6 +45,7 @@ export class DetailsContainerComponent implements OnInit {
     this.destinosService.getDetalle(id).subscribe({
       next: (detalle) => {
         this.dataDetalle = detalle;
+        console.log('%cDetailsContainerComponent: ', 'color: green; font-weight: bold;', this.dataDetalle);
       },
       error: () => {
       }

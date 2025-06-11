@@ -96,7 +96,6 @@ export class DestinosService {
   }
 
   getDetalle(destinoId: number): Observable<Detalle> {
-    console.log(`Fetching details for destination ID: ${destinoId}`);
     return this.http.get<Detalle>(`${this.apiUrl}/GetDetalle/${destinoId}`).pipe(
       map((resp) => {
          // Adapt the returned JSON (for example, map "detalle" to "descripcion" and "descripcion" to "descripcion_larga" if needed)
