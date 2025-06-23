@@ -103,7 +103,7 @@ export class RatingComponent implements OnInit {
   defaultAvatarPath = 'assets/images/avatars/user-avatar.jpg';
 
   getAvatarPath(avatarPath: string | undefined): string {
-    return avatarPath || 'https://img.icons8.com/pastel-glyph/64/teacher-female--v1.png';
+    return avatarPath || 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
   }
 
   handleImageError(event: Event): void {

@@ -59,7 +59,7 @@ export class ContactComponent {
   ];
 
   submitForm() {
-    console.log('Form submitted:', this.formData);
+
     // Reset form after submission
     this.formData = {
       name: '',

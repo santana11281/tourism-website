@@ -29,7 +29,7 @@ export class DetailsContainerComponent implements OnInit {
   ngOnInit(): void {
 
     this.storedService.destinoidChanges.subscribe((id) => {
-      console.log('%cDetailsContainerComponent: ', 'color: blue; font-weight: bold;', id);
+
       if (id) {
         this.destinoId = id; // Update local destinoId
         this.loadDetalle(id);
@@ -45,7 +45,7 @@ export class DetailsContainerComponent implements OnInit {
     this.destinosService.getDetalle(id).subscribe({
       next: (detalle) => {
         this.dataDetalle = detalle;
-        console.log('%cDetailsContainerComponent: ', 'color: green; font-weight: bold;', this.dataDetalle);
+
       },
       error: () => {
       }
