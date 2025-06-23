@@ -12,7 +12,8 @@
       <div class="col-lg-8">
         <div class="timeline">
           <!-- Default route points when no paradas -->
-          <ng-container *ngIf="routes[0].paradas.length === 0">
+          <ng-container>
+            <!-- Punto de partida -->
             <div class="timeline-item">
               <div class="timeline-icon">
                 <i class="fa fa-city"></i>
@@ -22,6 +23,19 @@
                 <p>Punto de partida</p>
               </div>
             </div>
+
+            <!-- Paradas intermedias -->
+            <div *ngFor="let parada of routes[0].paradas" class="timeline-item">
+              <div class="timeline-icon">
+                <i class="fa fa-map-marker-alt"></i>
+              </div>
+              <div class="timeline-content">
+                <h4>{{parada.nombre}}</h4>
+                <p>{{parada.descripcion}}</p>
+              </div>
+            </div>
+
+            <!-- Destino final -->
             <div class="timeline-item">
               <div class="timeline-icon">
                 <i class="fa fa-location-dot"></i>
@@ -32,6 +46,8 @@
               </div>
             </div>
           </ng-container>
+
+
         </div>
       </div>
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RutaInfoDto } from '../interfaces/ruta-info-dto.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
@@ -49,6 +50,9 @@ export interface Destino {
   providedIn: 'root'
 })
 export class DestinosService {
+  getRutasByDestino(destinoId: number): Observable<RutaInfoDto[]> {
+    return this.http.get<RutaInfoDto[]>(`/api/destinos/Rutas/${destinoId}`);
+  }
   private apiUrl = environment.apiUrl + 'destinos';
 
   constructor(private http: HttpClient) {}
@@ -118,4 +122,6 @@ export class DestinosService {
     return throwError(() => new Error('No se pudo cargar los destinos. Por favor, intente nuevamente más tarde.'));
   }
 }
+
+
 

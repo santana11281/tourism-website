@@ -267,10 +267,22 @@ INSERT INTO DestinoDetalles (destino_id, detalle, descripcion) VALUES
 INSERT INTO Rutas (origen, destino, distancia_km, duracion)
 VALUES ('Santo Domingo', 'Punta Cana', 200, '2h 30min');
 
+-- Insert additional routes
+INSERT INTO Rutas (origen, destino, distancia_km, duracion) VALUES
+('Santo Domingo', 'La Romana', 120, '1h 45min'),
+('La Romana', 'Punta Cana', 60, '1h'),
+('Santo Domingo', 'San Pedro de Macorís', 75, '1h 15min');
+
 -- Insert Rutas Relations
 INSERT INTO RutasDestinoRelation (ruta_id, destino_id) VALUES
 (1, 1),  -- Ruta de Santo Domingo a Punta Cana
-(1, 4);  -- Ruta de Santo Domingo a Punta Cana
+(1, 4),  -- Ruta de Santo Domingo a Punta Cana
+(2, 1),  -- Santo Domingo - La Romana
+(2, 3),  -- Santo Domingo - La Romana
+(3, 3),  -- La Romana - Punta Cana
+(3, 4),  -- La Romana - Punta Cana
+(4, 1),  -- Santo Domingo - San Pedro
+(4, 2);  -- Santo Domingo - San Pedro
 
 -- Insert Ruta Paradas
 INSERT INTO RutaParadas (ruta_id, nombre, descripcion, tiempo)
@@ -279,17 +291,38 @@ VALUES
 (1, 'Parada 2', 'Descripción de la parada 2', '2:30'),
 (1, 'Parada 3', 'Descripción de la parada 3', '3:00');
 
--- Insert Transporte Opciones
-INSERT INTO TransporteOpciones (ruta_id, tipo, duracion, precio_min, precio_max, icono)
-VALUES
-(1, 'Carro privado', '2h 30min', 150.00, 200.00, 'car'),
-(1, 'Autobús', '3h 00min', 50.00, 70.00, 'bus'),
-(1, 'Taxi compartido', '2h 45min', 100.00, 120.00, 'taxi');
+-- Insert realistic stops for Santo Domingo to La Romana route
+INSERT INTO RutaParadas (ruta_id, nombre, descripcion, tiempo, icono) VALUES
+(2, 'Parada en San Pedro de Macorís', 'Visita el Estadio Tetelo Vargas y disfruta de la arquitectura victoriana', '0:45', 'baseball'),
+(2, 'Playa Juan Dolio', 'Relájate en esta hermosa playa con aguas cristalinas', '1:15', 'umbrella-beach'),
+(2, 'Centro de La Romana', 'Explora el mercado local y prueba la gastronomía típica', '1:45', 'store');
 
--- Insert Tips Viaje
-INSERT INTO TipsViaje (ruta_id, texto)
-VALUES
-(1, 'Lleva protector solar y repelente de insectos para disfrutar al máximo de las playas.'),
-(1, 'Hidrátate constantemente, especialmente si viajas en verano.'),
-(1, 'Consulta el clima antes de viajar para llevar la ropa adecuada.'),
-(1, 'Prueba la gastronomía local en los restaurantes recomendados a lo largo de la ruta.');
+-- Insert stops for La Romana to Punta Cana route
+INSERT INTO RutaParadas (ruta_id, nombre, descripcion, tiempo, icono) VALUES
+(3, 'Altos de Chavón', 'Visita esta réplica de un pueblo mediterráneo del siglo XVI', '0:20', 'monument'),
+(3, 'Playa Bayahibe', 'Disfruta del snorkel y los deportes acuáticos', '0:40', 'water'),
+(3, 'Parque Nacional del Este', 'Explora la biodiversidad y los senderos naturales', '0:50', 'tree');
+
+-- Insert stops for Santo Domingo to San Pedro route
+INSERT INTO RutaParadas (ruta_id, nombre, descripcion, tiempo, icono) VALUES
+(4, 'Boca Chica', 'Famosa playa con aguas poco profundas y arena blanca', '0:30', 'umbrella-beach'),
+(4, 'Cueva de las Maravillas', 'Explora arte rupestre taíno en esta fascinante cueva', '0:55', 'mountain'),
+(4, 'Malecón de San Pedro', 'Paseo marítimo con vistas al mar Caribe', '1:15', 'water');
+
+-- Add transport options for new routes
+INSERT INTO TransporteOpciones (ruta_id, tipo, duracion, precio_min, precio_max, icono) VALUES
+(2, 'Carro privado', '1h 45min', 100.00, 150.00, 'car'),
+(2, 'Autobús', '2h 15min', 40.00, 50.00, 'bus'),
+(3, 'Carro privado', '1h', 80.00, 100.00, 'car'),
+(3, 'Taxi compartido', '1h 15min', 60.00, 80.00, 'taxi'),
+(4, 'Carro privado', '1h 15min', 90.00, 120.00, 'car'),
+(4, 'Autobús', '1h 45min', 30.00, 40.00, 'bus');
+
+-- Add travel tips for new routes
+INSERT INTO TipsViaje (ruta_id, texto) VALUES
+(2, 'Visita el Ingenio Cristóbal Colón para conocer la historia azucarera de la región'),
+(2, 'Los mejores restaurantes de pescado fresco se encuentran cerca del malecón'),
+(3, 'Programa tu visita a Altos de Chavón temprano para evitar el calor del mediodía'),
+(3, 'Lleva equipo de snorkel si planeas parar en Bayahibe'),
+(4, 'La mejor hora para visitar Boca Chica es temprano en la mañana'),
+(4, 'No olvides llevar efectivo para los vendedores locales en las playas');

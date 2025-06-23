@@ -13,6 +13,20 @@ import { DestinosService } from '../../../services/destinos.service';
 })
 export class RouteComponent implements OnInit {
   routes: Route[] = [];
+  paradas = [
+    {
+      nombre: "Parada 1",
+      descripcion: "Descripción de la primera parada"
+    },
+    {
+      nombre: "Parada 2",
+      descripcion: "Descripción de la segunda parada"
+    },
+    {
+      nombre: "Parada 3",
+      descripcion: "Descripción de la tercera parada"
+    }
+  ];
   loading = false;
   error: string | null = null;
 
