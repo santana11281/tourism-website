@@ -21,7 +21,10 @@ interface CompanyValue {
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.css'
 })
-export class AboutUsComponent {
+export class AboutUsComponent   {
+
+
+
   teamMembers: TeamMember[] = [
     {
       name: 'Michael Santana',

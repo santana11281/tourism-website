@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr'; // Import ToastrService
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoredService } from '../../../services/stored.service';
@@ -51,8 +52,9 @@ export class RatingComponent implements OnInit {
   reviews: Review[] = [];
 
   constructor(
-    private storedService: StoredService,
-    private valoracionesService: ValoracionesService
+      private storedService: StoredService,
+      private valoracionesService: ValoracionesService,
+      private toastr: ToastrService // Inject ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +66,7 @@ export class RatingComponent implements OnInit {
   private loadReviews(): void {
     this.valoracionesService.getReviewsByDestino(this.currentDestinoId).subscribe({
       next: (data) => {
-        console.log('Reviews fetched:', data);
+        this.toastr.success('Reseñas cargadas correctamente.', 'Éxito');
         this.reviews = data.map((review) => ({
           username: review.usuario,
           destinoId: review.destinoId,
@@ -81,7 +83,7 @@ export class RatingComponent implements OnInit {
         }));
       },
       error: (err) => {
-        console.error('Error fetching reviews:', err);
+        this.toastr.error('Hubo un error al cargar las reseñas.', 'Error');
       }
     });
   }
@@ -106,7 +108,7 @@ export class RatingComponent implements OnInit {
 
       this.valoracionesService.createReview(valoracion).subscribe({
           next: (response: Valoracion) => {
-              console.log('Valoración enviada exitosamente:', response);
+              this.toastr.success('¡Valoración enviada exitosamente!', 'Éxito');
               this.newReview = {
                   username: '',
                   destinoId: destinoId,
@@ -121,13 +123,25 @@ export class RatingComponent implements OnInit {
                   },
                   comment: ''
               }; // Reset the form
+
               this.loadReviews(); // Update the list of reviews
-              alert('Review added successfully!'); // Display toast notification
           },
           error: (err: Error) => {
-              console.error('Error al enviar la valoración:', err);
+              this.toastr.error('Hubo un error al enviar la valoración.', 'Error');
           }
       });
+                  this.toastr.success('Gracias por tu valoración!', 'Valoración Enviada', { // Show success message
+                timeOut: 2000,
+                progressBar: true,
+                positionClass: 'toast-bottom-right'
+              });
+              // scroll to new review
+              setTimeout(() => {
+                const reviewElement = document.querySelector('.review:last-child');
+                if (reviewElement) {
+                  reviewElement.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
   }
 
   setCategoryRating(categoryName: string, rating: number) {
