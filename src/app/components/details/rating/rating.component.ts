@@ -107,7 +107,6 @@ export class RatingComponent implements OnInit {
 
       this.valoracionesService.createReview(valoracion).subscribe({
           next: (response: Valoracion) => {
-              this.toastr.success('¡Valoración enviada exitosamente!', 'Éxito');
               this.newReview = {
                   username: '',
                   destinoId: destinoId,
