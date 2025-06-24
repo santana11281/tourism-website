@@ -13,7 +13,18 @@
             <p>Descubre los mejores destinos de República Dominicana y planifica tu próxima aventura.</p>
             <div class="search-input">
               <form id="search">
-                <input type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="Buscar destinos...">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="searchQuery"
+                  name="searchQuery"
+                  placeholder="Buscar destinos..."
+                  [ngbTypeahead]="searchTypeahead"
+                  [resultFormatter]="formatter"
+                  [inputFormatter]="formatter"
+                  (selectItem)="onDestinoSelected($event)"
+                  autocomplete="off"
+                />
                 <button class="search-btn" type="submit">
                   <i class="fa fa-search"></i>
                 </button>

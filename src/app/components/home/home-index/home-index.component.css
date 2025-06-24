@@ -394,3 +394,35 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* NgbTypeahead Dropdown Styling */
+:host ::ng-deep ngb-typeahead-window {
+  width: calc(100% - 10px) !important;
+  max-width: 490px !important;
+  margin-top: 5px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+  background: white;
+  z-index: 1050;
+}
+
+:host ::ng-deep ngb-typeahead-window .dropdown-item {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  color: #333;
+  border-radius: 10px;
+  margin: 2px 5px;
+  transition: background-color 0.2s ease;
+}
+
+:host ::ng-deep ngb-typeahead-window .dropdown-item:hover,
+:host ::ng-deep ngb-typeahead-window .dropdown-item:focus {
+  background-color: rgba(1, 113, 249, 0.1);
+  color: #0171f9;
+}
+
+:host ::ng-deep ngb-typeahead-window .dropdown-item.active {
+  background-color: #0171f9;
+  color: white;
+}

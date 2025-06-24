@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Observable, of, OperatorFunction } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { DestinosService, Destino } from '../../../services/destinos.service';
 import { DestinyHomeCardComponent } from '../../destiny-home-card/destiny-home-card.component';
 import { DestinosComponent } from "../../destinos/destinos.component";
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home-index',
@@ -13,7 +16,8 @@ import { DestinosComponent } from "../../destinos/destinos.component";
     CommonModule,
     RouterModule,
     FormsModule,
-    DestinyHomeCardComponent
+    DestinyHomeCardComponent,
+    NgbTypeaheadModule
 ],
   templateUrl: './home-index.component.html',
   styleUrl: './home-index.component.css'
@@ -26,6 +30,25 @@ export class HomeIndexComponent implements OnInit {
   categories: string[] = ['Todos'];
   isLoading: boolean = true;
   error: string | null = null;
+
+  // For Typeahead
+  searchTypeahead: OperatorFunction<string, readonly Destino[]> = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term =>
+        term.length < 2
+          ? []
+          : this.destinos.filter(
+              v =>
+                v.nombre.toLowerCase().includes(term.toLowerCase()) ||
+                v.ciudad.toLowerCase().includes(term.toLowerCase()) ||
+                v.provincia.toLowerCase().includes(term.toLowerCase())
+            )
+      )
+    );
+
+  formatter = (d: Destino | null) => d ? d.nombre : '';
 
   constructor(private destinosService: DestinosService) {}
 
@@ -93,7 +116,7 @@ export class HomeIndexComponent implements OnInit {
       name: 'María García',
       location: 'España',
       comment: 'Una experiencia inolvidable. Las playas son increíbles y la gente muy amable.',
-      image: 'https://i.pravatar.cc/150?img=1',
+      image: 'https://s3.amazonaws.com/media.harvardartmuseums.org/production/file_uploads/CalendarEvent/images/000/003/602/hero/339ab2e0b633fa34.jpg',
       rating: 5
     },
     {
@@ -163,6 +186,12 @@ export class HomeIndexComponent implements OnInit {
 
   onSearchChange(): void {
     this.filterDestinos();
+  }
+
+  onDestinoSelected(event: any): void {
+    const destino: Destino = event.item;
+    this.searchQuery = destino.nombre;
+    this.filteredDestinos = [destino];
   }
 
   onCategoryChange(category: string): void {

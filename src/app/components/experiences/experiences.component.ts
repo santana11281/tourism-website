@@ -36,8 +36,8 @@ export class ExperiencesComponent {
       rating: 5,
       review: "¡Un paraíso en la tierra! Las aguas cristalinas y la arena blanca hacen de esta playa un lugar mágico. El servicio en los hoteles es excelente.",
       images: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Playa_Maya%2C_Ko_Phi_Phi%2C_Tailandia%2C_2013-08-19%2C_DD_10.JPG/1200px-Playa_Maya%2C_Ko_Phi_Phi%2C_Tailandia%2C_2013-08-19%2C_DD_10.JPG",
-        "https://bsmedia.business-standard.com/_media/bs/img/article/2024-03/27/full/1711536885-3711.jpg?im=FitAndFill=(826,465)"
+        "https://cdn.prod.website-files.com/62697bd1c989d939564add63/62697bd1c989d936204ae0e2_Playa%20Ba%CC%81varo%2C%20Punta%20Cana%20005.jpg",
+        "https://static-resources-elementor.mirai.com/wp-content/uploads/sites/1392/Playa-Bavaro-Punta-Cana-Garden-Hotels.jpg"
       ],
       likes: 234,
       comments: 45,
@@ -52,7 +52,7 @@ export class ExperiencesComponent {
       rating: 4,
       review: "Un viaje al pasado en el corazón de Santo Domingo. La arquitectura colonial y los museos son impresionantes. No se pierdan el recorrido por las primeras calles de América.",
       images: [
-        "https://images.forbesindia.com/media/images/2021/Oct/img_169601_indiantourist.jpg"
+        "https://destinoysabor.com/blog/wp-content/uploads/2019/02/Turismo-familiar-en-Santo-Domingo.jpg"
       ],
       likes: 178,
       comments: 32,
@@ -67,8 +67,8 @@ export class ExperiencesComponent {
       rating: 5,
       review: "La caminata hasta la cascada vale totalmente la pena. El paisaje es espectacular y el agua es refrescante. Los guías locales son muy amables y conocedores.",
       images: [
-        "https://media.cnn.com/api/v1/images/stellar/prod/230828105142-01-instagram-respectful-tourism-top.jpg?c=16x9&q=h_653,w_1160,c_fill/f_webp",
-        "https://www.usatoday.com/gcdn/-mm-/b2b05a4ab25f4fca0316459e1c7404c537a89702/c=0-0-1365-768/local/-/media/2019/05/25/USATODAY/usatsports/247WallSt.com-247WS-549930-imageforentry1-pc0.jpg?width=660&height=372&fit=crop&format=pjpg&auto=webp"
+        "https://wetravelandblog.com/wp-content/uploads/2014/03/Limon.jpg",
+        "https://images.visitarepublicadominicana.org/salto-el-limon-samana.jpg"
       ],
       likes: 312,
       comments: 67,
