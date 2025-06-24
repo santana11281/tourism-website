@@ -66,7 +66,6 @@ export class RatingComponent implements OnInit {
   private loadReviews(): void {
     this.valoracionesService.getReviewsByDestino(this.currentDestinoId).subscribe({
       next: (data) => {
-        this.toastr.success('Reseñas cargadas correctamente.', 'Éxito');
         this.reviews = data.map((review) => ({
           username: review.usuario,
           destinoId: review.destinoId,
