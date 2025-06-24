@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoredService } from '../../../services/stored.service';
+import { ValoracionesService } from '../../../services/valoraciones.service';
+import { Valoracion } from '../../../models/Valoracion';
 
 interface CategoryRating {
   name: string;
@@ -29,16 +31,18 @@ interface Review {
 })
 export class RatingComponent implements OnInit {
 
+  currentDestinoId: number = 1; // Default value, can be set dynamically
+
   newReview: Review = {
     username: '',
-    destinoId: 0,
-    date: new Date().toLocaleDateString(),
+    destinoId: 1,
+    date: '',
     ratings: {
       overall: 0,
       categories: [
-        { name: 'Gastronomía', rating: 0, icon: 'fa-utensils' },
-        { name: 'Alojamiento', rating: 0, icon: 'fa-hotel' },
-        { name: 'Ubicación', rating: 0, icon: 'fa-map-marker' }
+        { name: 'Alojamiento', rating: 0, icon: 'fa-star' },
+        { name: 'Gastronomía', rating: 0, icon: 'fa-star' },
+        { name: 'Ubicación', rating: 0, icon: 'fa-star' }
       ]
     },
     comment: ''
@@ -46,51 +50,104 @@ export class RatingComponent implements OnInit {
 
   reviews: Review[] = [];
 
-  constructor(private storedService: StoredService) { }
+  constructor(
+    private storedService: StoredService,
+    private valoracionesService: ValoracionesService
+  ) {}
+
 
   ngOnInit(): void {
-    this.newReview.destinoId = this.storedService.destinoid;
+
     this.loadReviews();
+    this.newReview.destinoId = this.storedService.destinoid || 1; // Default to 1 if no destination ID is stored
+    this.currentDestinoId = this.storedService.destinoid || 1; // Set currentDestinoId from stored service or default to 1
   }
 
   private loadReviews(): void {
-    const savedReviews = localStorage.getItem(`reviews_${this.newReview.destinoId}`);
-    if (savedReviews) {
-      this.reviews = JSON.parse(savedReviews);
-    }
+    this.valoracionesService.getReviewsByDestino(this.currentDestinoId).subscribe({
+      next: (data) => {
+        console.log('Reviews fetched:', data);
+        this.reviews = data.map((review) => ({
+          username: review.usuario,
+          destinoId: review.destinoId,
+          date: review.fechaVisita,
+          ratings: {
+            overall: review.ratingGeneral,
+            categories: review.categorias.map((categoria) => ({
+              name: categoria.categoria,
+              rating: categoria.rating,
+              icon: 'fa-star'
+            }))
+          },
+          comment: review.comentario
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching reviews:', err);
+      }
+    });
   }
 
   private saveReviews(): void {
-    localStorage.setItem(
-      `reviews_${this.newReview.destinoId}`,
-      JSON.stringify(this.reviews)
-    );
+    const valoracion: Valoracion = {
+        id: 0, // Assuming new valoraciones have no ID yet
+        destinoId: this.newReview.destinoId,
+        usuario: 'defaultUser', // Replace with actual user data
+        fechaVisita: new Date().toISOString(), // Current date
+        ratingGeneral: this.newReview.ratings.overall,
+        comentario: this.newReview.comment,
+        destino: undefined, // Optional property
+        categorias: this.newReview.ratings.categories.map(category => ({
+            id: undefined, // Assuming ID is optional when creating
+            categoria: category.name,
+            rating: category.rating
+        }))
+    };
+
+    this.valoracionesService.updateValoracion(valoracion.id || 0, valoracion).subscribe({
+      next: (data: Valoracion) => {
+        console.log('Valoracion created:', data);
+      },
+      error: (err: Error) => {
+        console.error('Error creating valoracion:', err);
+      }
+    });
   }
 
   submitRating() {
-    const review: Review = {
-      ...this.newReview,
-      date: new Date().toLocaleDateString()
+    const valoracion: Valoracion = {
+      destinoId: 1,
+      usuario: "michaelsd28",
+      fechaVisita: "2025-06-23T00:00:00",
+      ratingGeneral: 4,
+      comentario: "Me gustó este lugar",
+      destino: undefined,
+      categorias: [
+        {
+          categoria: "Alojamiento",
+          rating: 3
+        },
+        {
+          categoria: "Gastronomía",
+          rating: 4
+        },
+        {
+          categoria: "Ubicación",
+          rating: 1
+        }
+      ]
     };
 
-    this.reviews.unshift(review);
-    this.saveReviews();
-
-    // Reset form
-    this.newReview = {
-      username: '',
-      destinoId: this.storedService.destinoid,
-      date: new Date().toLocaleDateString(),
-      ratings: {
-        overall: 0,
-        categories: [
-          { name: 'Gastronomía', rating: 0, icon: 'fa-utensils' },
-          { name: 'Alojamiento', rating: 0, icon: 'fa-hotel' },
-          { name: 'Ubicación', rating: 0, icon: 'fa-map-marker' }
-        ]
+    this.valoracionesService.updateValoracion(valoracion.id || 0, valoracion).subscribe({
+      next: (response: Valoracion) => {
+        console.log('Valoración enviada exitosamente:', response);
       },
-      comment: ''
-    };
+      error: (err: Error) => {
+        console.error('Error al enviar la valoración:', err);
+      }
+    });
+
+
   }
 
   setCategoryRating(categoryName: string, rating: number) {
