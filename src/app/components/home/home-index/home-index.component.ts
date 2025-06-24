@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Observable, of, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -50,7 +50,23 @@ export class HomeIndexComponent implements OnInit {
 
   formatter = (d: Destino | null) => d ? d.nombre : '';
 
-  constructor(private destinosService: DestinosService) {}
+  constructor(
+    private destinosService: DestinosService,
+    private router: Router
+  ) {}
+
+  navigateToDestino(): void {
+    if (this.searchQuery && this.destinos.length > 0) {
+      const selectedDestino = this.destinos.find(d =>
+        d.nombre.toLowerCase() === this.searchQuery.toLowerCase()
+      );
+
+      if (selectedDestino) {
+        this.router.navigate(['/details/info', selectedDestino.id]);
+        return;
+      }
+    }
+  }
 
 
 
@@ -191,7 +207,7 @@ export class HomeIndexComponent implements OnInit {
   onDestinoSelected(event: any): void {
     const destino: Destino = event.item;
     this.searchQuery = destino.nombre;
-    this.filteredDestinos = [destino];
+    this.router.navigate(['/details/info', destino.id]);
   }
 
   onCategoryChange(category: string): void {
