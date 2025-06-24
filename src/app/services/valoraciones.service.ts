@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ValoracionApi } from '../models/ValoracionApi';
 import { Valoracion } from '../models/Valoracion';
-import { environment } from '../../environments/devlopment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

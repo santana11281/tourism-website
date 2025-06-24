@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { Activity } from '../../models/Activity';
 import { Climate } from '../../models/Climate';
-import { environment } from '../../environments/devlopment';
+import { environment } from '../../environments/environment';
 import { Route } from '../models/Route';
 import { Detalle } from '../models/Detalle';
 

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Categoria, ImagenGaleria } from '../interfaces/galeria.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GaleriaService {
-  private readonly baseUrl = 'http://localhost:5041/Galeria/galeria';
+  private readonly baseUrl = environment.apiUrl + 'Galeria/galeria';
 
   constructor(private http: HttpClient) {}
 
