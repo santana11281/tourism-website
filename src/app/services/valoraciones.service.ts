@@ -20,11 +20,7 @@ export class ValoracionesService {
 
 
 
-  updateValoracion(id: number, valoracion: Valoracion): Observable<Valoracion> {
-    return this.http.put<Valoracion>(`${this.apiUrl}/${id}`, valoracion);
-  }
-
-  deleteValoracion(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  createReview(review: Valoracion): Observable<Valoracion> {
+      return this.http.post<Valoracion>(`${this.apiUrl}`, review);
   }
 }
